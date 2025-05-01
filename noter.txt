@@ -1,0 +1,6 @@
+noter
+
+cd C:\Users\chris\Desktop\ba\code
+.\venv\Scripts\activate
+
+https://sdurobotics.gitlab.io/ur_rtde/examples/examples.html#basic-use
