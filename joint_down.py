@@ -91,6 +91,8 @@ try:
     close(servol)  # Close the servo after reaching Pose 1
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)  # Move back to safe position
 
+    open(servol)  # Open the servo after moving back to safe position
+
     print(f"Moving to Pose 2: {target_pose2}")
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
@@ -98,52 +100,56 @@ try:
     rtde_c.stopJ() 
     print("Reached Pose 2.")
     wait_for_key("Press Enter to continue after reaching Pose 2...")
+    close(servol)  # Close the servo after reaching Pose 2
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  # Move back to safe position
 
-    print(f"Moving to Pose 3: {target_pose3}")
-    rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move to safe position first
-    rtde_c.moveL(target_pose3, SPEED, ACCELERATION)
-    rtde_c.stopL()
-    rtde_c.stopJ()
-    print("Reached Pose 3.")
-    wait_for_key("Press Enter to continue after reaching Pose 3...")
-    rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move back to safe position
+    open(servol)  # Open the servo after moving back to safe position
 
-    print(f"Moving to Pose 4: {target_pose4}")
-    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move to safe position first
-    rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
-    rtde_c.stopL()
-    rtde_c.stopJ()
-    print("Reached Pose 4.")
-    wait_for_key("Press Enter to continue after reaching Pose 4...")
-    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move back to safe position
+    
+    # print(f"Moving to Pose 3: {target_pose3}")
+    # rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move to safe position first
+    # rtde_c.moveL(target_pose3, SPEED, ACCELERATION)
+    # rtde_c.stopL()
+    # rtde_c.stopJ()
+    # print("Reached Pose 3.")
+    # wait_for_key("Press Enter to continue after reaching Pose 3...")
+    # rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move back to safe position
 
-    print(f"Moving to Pose 5: {target_pose5}")
-    rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move to safe position first
-    rtde_c.moveL(target_pose5, SPEED, ACCELERATION)
-    rtde_c.stopL()
-    rtde_c.stopJ()
-    print("Reached Pose 5.")
-    wait_for_key("Press Enter to continue after reaching Pose 5...")
-    rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move back to safe position
+    # print(f"Moving to Pose 4: {target_pose4}")
+    # rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move to safe position first
+    # rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
+    # rtde_c.stopL()
+    # rtde_c.stopJ()
+    # print("Reached Pose 4.")
+    # wait_for_key("Press Enter to continue after reaching Pose 4...")
+    # rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move back to safe position
 
-    print(f"Moving to Pose 6: {target_pose6}")
-    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move to safe position first
-    rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
-    rtde_c.stopL()
-    rtde_c.stopJ()
-    print("Reached Pose 6.")
-    wait_for_key("Press Enter to continue after reaching Pose 6...")
-    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move back to safe position
+    # print(f"Moving to Pose 5: {target_pose5}")
+    # rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move to safe position first
+    # rtde_c.moveL(target_pose5, SPEED, ACCELERATION)
+    # rtde_c.stopL()
+    # rtde_c.stopJ()
+    # print("Reached Pose 5.")
+    # wait_for_key("Press Enter to continue after reaching Pose 5...")
+    # rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move back to safe position
 
-    print(f"Moving to Pose 7: {target_pose7}")
-    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move to safe position first
-    rtde_c.moveL(target_pose7, SPEED, ACCELERATION)
-    rtde_c.stopL()
-    rtde_c.stopJ()
-    print("Reached Pose 7.")
-    wait_for_key("Press Enter to continue after reaching Pose 7...")
-    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move back to safe position
+    # print(f"Moving to Pose 6: {target_pose6}")
+    # rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move to safe position first
+    # rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
+    # rtde_c.stopL()
+    # rtde_c.stopJ()
+    # print("Reached Pose 6.")
+    # wait_for_key("Press Enter to continue after reaching Pose 6...")
+    # rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move back to safe position
+
+    # print(f"Moving to Pose 7: {target_pose7}")
+    # rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move to safe position first
+    # rtde_c.moveL(target_pose7, SPEED, ACCELERATION)
+    # rtde_c.stopL()
+    # rtde_c.stopJ()
+    # print("Reached Pose 7.")
+    # wait_for_key("Press Enter to continue after reaching Pose 7...")
+    # rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move back to safe position
 
 
 
