@@ -89,7 +89,6 @@ try:
     print("Reached Pose 1.")
     wait_for_key("Press Enter to continue after reaching Pose 1...")
     close(servol)  # Close the servo after reaching Pose 1
-    time.sleep(2)  # Wait for the servo to close
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 2: {target_pose2}")
@@ -153,6 +152,7 @@ except Exception as e:
 
 finally:
     # --- Disconnect ---
+    stop(servol)
     if 'rtde_c' in locals() and rtde_c.isConnected():
         print("Stopping script and disconnecting.")
         rtde_c.stopScript()

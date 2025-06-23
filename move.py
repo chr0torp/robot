@@ -17,12 +17,14 @@ def open(servol):
     print("Opening servo")
     servol.ChangeDutyCycle(6)  # Set duty cycle to 6% (approximately 90 degrees)
     time.sleep(2)  # Wait for the servo to move
+    servol.ChangeDutyCycle(0)
     print("Servo opened.")
 
 def close(servol):
     print("Closing servo")
     servol.ChangeDutyCycle(3.5)  # Set duty cycle to 3.5% (approximately 0 degrees)
     time.sleep(2)  # Wait for the servo to move
+    servol.ChangeDutyCycle(0)
     print("Servo closed.")
 
 def stop(servol):
@@ -31,7 +33,7 @@ def stop(servol):
     servol.stop()  # Stop the servo
     GPIO.cleanup()  # Clean up GPIO settings
     print("Servo movement completed and GPIO cleaned up.")
-    time.sleep(1)  # Wait for a moment before stopping completely
+    time.sleep(2)  # Wait for a moment before stopping completely
 
 if __name__ == "__main__":
     try:
