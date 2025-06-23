@@ -29,21 +29,36 @@ try:
     wait_for_key("Press Enter to continue after checking initial pose...")
 
     # --- Define Target X, Y Coordinates ---
-    # Example: Move to X=0.4, Y=-0.2 while keeping Z=Z_HEIGHT and orientation fixed
     target_x1 = -0.5
-    target_y1 = -0.2
+    target_y1 = -0.15
 
-    # Example: Move to X=0.5, Y=0.1 while keeping Z=Z_HEIGHT and orientation fixed
     target_x2 = -0.5
-    target_y2 = 0.0
+    target_y2 = -0.1
 
     target_x3 = -0.5
-    target_y3 = 0.2
+    target_y3 = -0.05
+
+    target_x4 = -0.5
+    target_y4 = 0.0
+
+    target_x5 = -0.5
+    target_y5 = 0.05
+
+    target_x6 = -0.5
+    target_y6 = 0.1
+
+    target_x7 = -0.5
+    target_y7 = 0.15
+
 
     # --- Construct Target Poses ---
     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
     target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
     target_pose3 = [target_x3, target_y3, Z_HEIGHT] + FIXED_ORIENTATION
+    target_pose4 = [target_x4, target_y4, Z_HEIGHT] + FIXED_ORIENTATION
+    target_pose5 = [target_x5, target_y5, Z_HEIGHT] + FIXED_ORIENTATION
+    target_pose6 = [target_x6, target_y6, Z_HEIGHT] + FIXED_ORIENTATION
+    target_pose7 = [target_x7, target_y7, Z_HEIGHT] + FIXED_ORIENTATION
 
 
     # --- Execute Moves ---
@@ -69,6 +84,34 @@ try:
     rtde_c.stopJ()
     print("Reached Pose 3.")
     wait_for_key("Press Enter to continue after reaching Pose 3...")
+
+    print(f"Moving to Pose 4: {target_pose4}")
+    rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
+    rtde_c.stopL()
+    rtde_c.stopJ()
+    print("Reached Pose 4.")
+    wait_for_key("Press Enter to continue after reaching Pose 4...")
+
+    print(f"Moving to Pose 5: {target_pose5}")
+    rtde_c.moveL(target_pose5, SPEED, ACCELERATION)
+    rtde_c.stopL()
+    rtde_c.stopJ()
+    print("Reached Pose 5.")
+    wait_for_key("Press Enter to continue after reaching Pose 5...")
+
+    print(f"Moving to Pose 6: {target_pose6}")
+    rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
+    rtde_c.stopL()
+    rtde_c.stopJ()
+    print("Reached Pose 6.")
+    wait_for_key("Press Enter to continue after reaching Pose 6...")
+
+    print(f"Moving to Pose 7: {target_pose7}")
+    rtde_c.moveL(target_pose7, SPEED, ACCELERATION)
+    rtde_c.stopL()
+    rtde_c.stopJ()
+    print("Reached Pose 7.")
+
 
 
 except Exception as e:
