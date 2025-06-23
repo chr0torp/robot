@@ -4,6 +4,7 @@ from rtde_control import RTDEControlInterface as RTDEControl
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 
 from robot_utils import *
+from move import *
 
 
 # --- Configuration ---
@@ -18,10 +19,15 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 # --- End Configuration ---
 
 try:
+    servol = start_servo()
+
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
     rtde_r = RTDEReceive(ROBOT_IP)
     print("Successfully connected to robot.")
+
+    close(servol)
+    open(servol)
 
     # --- Get Initial Position (Optional but good practice) ---
     initial_pose = rtde_r.getActualTCPPose()
@@ -82,6 +88,8 @@ try:
     rtde_c.stopJ()  # Ensure the robot stops any ongoing joint movement
     print("Reached Pose 1.")
     wait_for_key("Press Enter to continue after reaching Pose 1...")
+    close(servol)  # Close the servo after reaching Pose 1
+    time.sleep(2)  # Wait for the servo to close
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 2: {target_pose2}")
