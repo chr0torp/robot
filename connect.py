@@ -3,7 +3,7 @@ import math
 from rtde_control import RTDEControlInterface as RTDEControl
 from rtde_receive import RTDEReceiveInterface as RTDEReceive
 
-ROBOT_IP = "192.168.1.101"
+ROBOT_IP = "192.168.1.102"
 
 try:
     # --- Connect to Robot ---
