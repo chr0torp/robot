@@ -9,7 +9,7 @@ from robot_utils import *
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 Z_HEIGHT = 0.3             # Desired constant Z height (in meters)
-SPEED = 0.01                # TCP speed (m/s)
+SPEED = 0.1                # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
 # Define the fixed orientation (tool's Z-axis points down along base -Z)
@@ -30,16 +30,21 @@ try:
 
     # --- Define Target X, Y Coordinates ---
     # Example: Move to X=0.4, Y=-0.2 while keeping Z=Z_HEIGHT and orientation fixed
-    target_x1 = -0.4
+    target_x1 = -0.5
     target_y1 = -0.2
 
     # Example: Move to X=0.5, Y=0.1 while keeping Z=Z_HEIGHT and orientation fixed
-    target_x2 = -0.45
-    target_y2 = -0.15
+    target_x2 = -0.5
+    target_y2 = 0.0
+
+    target_x3 = -0.5
+    target_y3 = 0.2
 
     # --- Construct Target Poses ---
     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
     target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
+    target_pose3 = [target_x3, target_y3, Z_HEIGHT] + FIXED_ORIENTATION
+
 
     # --- Execute Moves ---
 
@@ -48,7 +53,6 @@ try:
     rtde_c.stopL()
     rtde_c.stopJ()  # Ensure the robot stops any ongoing joint movement
     print("Reached Pose 1.")
-    time.sleep(1) # Pause briefly
     wait_for_key("Press Enter to continue after reaching Pose 1...")
     
 
@@ -59,9 +63,12 @@ try:
     print("Reached Pose 2.")
     wait_for_key("Press Enter to continue after reaching Pose 2...")
 
-
-    print("Reached Pose 2.")
-    time.sleep(1)
+    print(f"Moving to Pose 3: {target_pose3}")
+    rtde_c.moveL(target_pose3, SPEED, ACCELERATION)
+    rtde_c.stopL()
+    rtde_c.stopJ()
+    print("Reached Pose 3.")
+    wait_for_key("Press Enter to continue after reaching Pose 3...")
 
 
 except Exception as e:
