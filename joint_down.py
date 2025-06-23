@@ -53,64 +53,90 @@ try:
 
     # --- Construct Target Poses ---
     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose3 = [target_x3, target_y3, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose4 = [target_x4, target_y4, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose5 = [target_x5, target_y5, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose6 = [target_x6, target_y6, Z_HEIGHT] + FIXED_ORIENTATION
-    target_pose7 = [target_x7, target_y7, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose1 = safe_pos(target_pose1)
 
+    target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose2 = safe_pos(target_pose2)
+
+    target_pose3 = [target_x3, target_y3, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose3 = safe_pos(target_pose3)
+
+    target_pose4 = [target_x4, target_y4, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose4 = safe_pos(target_pose4)
+
+    target_pose5 = [target_x5, target_y5, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose5 = safe_pos(target_pose5)
+
+    target_pose6 = [target_x6, target_y6, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose6 = safe_pos(target_pose6)
+    
+    target_pose7 = [target_x7, target_y7, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose7 = safe_pos(target_pose7)
 
     # --- Execute Moves ---
 
     print(f"Moving to Pose 1: {target_pose1}")
+    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()  # Ensure the robot stops any ongoing joint movement
     print("Reached Pose 1.")
     wait_for_key("Press Enter to continue after reaching Pose 1...")
-    
+    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 2: {target_pose2}")
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ() 
     print("Reached Pose 2.")
     wait_for_key("Press Enter to continue after reaching Pose 2...")
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 3: {target_pose3}")
+    rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose3, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()
     print("Reached Pose 3.")
     wait_for_key("Press Enter to continue after reaching Pose 3...")
+    rtde_c.moveL(safe_pose3, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 4: {target_pose4}")
+    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()
     print("Reached Pose 4.")
     wait_for_key("Press Enter to continue after reaching Pose 4...")
+    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 5: {target_pose5}")
+    rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose5, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()
     print("Reached Pose 5.")
     wait_for_key("Press Enter to continue after reaching Pose 5...")
+    rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 6: {target_pose6}")
+    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()
     print("Reached Pose 6.")
     wait_for_key("Press Enter to continue after reaching Pose 6...")
+    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)  # Move back to safe position
 
     print(f"Moving to Pose 7: {target_pose7}")
+    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move to safe position first
     rtde_c.moveL(target_pose7, SPEED, ACCELERATION)
     rtde_c.stopL()
     rtde_c.stopJ()
     print("Reached Pose 7.")
+    wait_for_key("Press Enter to continue after reaching Pose 7...")
+    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)  # Move back to safe position
 
 
 
