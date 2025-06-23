@@ -8,7 +8,7 @@ from robot_utils import *
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
-Z_HEIGHT = 0.3             # Desired constant Z height (in meters)
+Z_HEIGHT = 0.35             # Desired constant Z height (in meters)
 SPEED = 0.1                # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
