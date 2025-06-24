@@ -40,23 +40,21 @@ try:
     target_x1 = -0.5
     target_y1 = -0.15
 
-    target_x2 = -0.5
-    target_y2 = -0.1
+    target_x2 = -0.55
+    target_y2 = -0.15
 
     target_x3 = -0.5
     target_y3 = -0.05
 
-    target_x4 = -0.5
-    target_y4 = 0.0
+    target_x4 = -0.55
+    target_y4 = -0.05
 
     target_x5 = -0.5
     target_y5 = 0.05
 
-    target_x6 = -0.5
-    target_y6 = 0.1
+    target_x6 = -0.55
+    target_y6 = 0.05
 
-    target_x7 = -0.5
-    target_y7 = 0.15
 
 
     # --- Construct Target Poses ---
@@ -91,14 +89,14 @@ try:
     open(servol) 
     # quit_key()
 
-    # print(f"Moving to Pose 2: {target_pose2}")
-    # rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 
-    # rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
-    # stop_move(rtde_c)
-    # print("Reached Pose 2.")
-    # close(servol) 
-    # rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  
-    # open(servol)  
+    print(f"Moving to Pose 2: {target_pose2}")
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 
+    rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 2.")
+    close(servol) 
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  
+    open(servol)  
 
     print(f"Moving to Pose 3: {target_pose3}")
     rtde_c.moveL(safe_pose3, SPEED, ACCELERATION) 
@@ -109,14 +107,14 @@ try:
     rtde_c.moveL(safe_pose3, SPEED, ACCELERATION) 
     open(servol)  
 
-    # print(f"Moving to Pose 4: {target_pose4}")
-    # rtde_c.moveL(safe_pose4, SPEED, ACCELERATION) 
-    # rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
-    # stop_move(rtde_c)
-    # print("Reached Pose 4.")
-    # close(servol) 
-    # rtde_c.moveL(safe_pose4, SPEED, ACCELERATION) 
-    # open(servol) 
+    print(f"Moving to Pose 4: {target_pose4}")
+    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION) 
+    rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 4.")
+    close(servol) 
+    rtde_c.moveL(safe_pose4, SPEED, ACCELERATION) 
+    open(servol) 
 
     print(f"Moving to Pose 5: {target_pose5}")
     rtde_c.moveL(safe_pose5, SPEED, ACCELERATION) 
@@ -127,14 +125,14 @@ try:
     rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  
     open(servol) 
 
-    # print(f"Moving to Pose 6: {target_pose6}")
-    # rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)
-    # rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
-    # stop_move(rtde_c)
-    # print("Reached Pose 6.")
-    # close(servol)
-    # rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)
-    # open(servol)
+    print(f"Moving to Pose 6: {target_pose6}")
+    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)
+    rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 6.")
+    close(servol)
+    rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)
+    open(servol)
 
 
 
