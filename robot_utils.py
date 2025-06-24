@@ -4,7 +4,7 @@ from rtde_receive import RTDEReceiveInterface as RTDEReceive
 
 
 
-def stop_move():
+def stop_move(rtde_c):
     """
     Stop the robot's motion.
     """
