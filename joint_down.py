@@ -10,7 +10,7 @@ from move import *
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
-SPEED = 0.1                # TCP speed (m/s)
+SPEED = 0.2                # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
 # Define the fixed orientation (tool's Z-axis points down along base -Z)
@@ -87,7 +87,7 @@ try:
     close(servol) 
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
     open(servol) 
-    quit_key("Press Enter to exit, or space to continue...")
+    quit_key()
 
     print(f"Moving to Pose 2: {target_pose2}")
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 

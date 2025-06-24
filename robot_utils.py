@@ -15,7 +15,7 @@ def stop_move(rtde_c):
 def wait_for_key(prompt="Press Enter to continue..."):
     input(prompt)
 
-def quit_key(prompt="Press Enter to quit, press space to continue..."):
+def quit_key(prompt="Press q then enter to quit, press enter to continue..."):
     """
     Wait for the user to press Enter to quit or space to continue.
     This version is platform-independent.
