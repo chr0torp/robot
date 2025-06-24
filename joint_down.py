@@ -76,8 +76,6 @@ try:
     target_pose6 = [target_x6, target_y6, Z_HEIGHT] + FIXED_ORIENTATION
     safe_pose6 = safe_pos(target_pose6)
     
-    target_pose7 = [target_x7, target_y7, Z_HEIGHT] + FIXED_ORIENTATION
-    safe_pose7 = safe_pos(target_pose7)
 
     # --- Execute Moves ---
 
@@ -85,19 +83,17 @@ try:
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
     stop_move(rtde_c)
-
     print("Reached Pose 1.")
-    wait_for_key("Press Enter to continue after reaching Pose 1...")
     close(servol) 
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
     open(servol) 
+    quit_key("Press Enter to exit, or space to continue...")
 
     print(f"Moving to Pose 2: {target_pose2}")
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 
     rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 2.")
-    wait_for_key("Press Enter to continue after reaching Pose 2...")
     close(servol) 
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  
     open(servol)  
@@ -107,7 +103,6 @@ try:
     rtde_c.moveL(target_pose3, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 3.")
-    wait_for_key("Press Enter to continue after reaching Pose 3...")
     close(servol)  
     rtde_c.moveL(safe_pose3, SPEED, ACCELERATION) 
     open(servol)  
@@ -117,7 +112,6 @@ try:
     rtde_c.moveL(target_pose4, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 4.")
-    wait_for_key("Press Enter to continue after reaching Pose 4...")
     close(servol) 
     rtde_c.moveL(safe_pose4, SPEED, ACCELERATION) 
     open(servol) 
@@ -127,7 +121,6 @@ try:
     rtde_c.moveL(target_pose5, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 5.")
-    wait_for_key("Press Enter to continue after reaching Pose 5...")
     close(servol)  
     rtde_c.moveL(safe_pose5, SPEED, ACCELERATION)  
     open(servol) 
@@ -137,19 +130,8 @@ try:
     rtde_c.moveL(target_pose6, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 6.")
-    wait_for_key("Press Enter to continue after reaching Pose 6...")
     close(servol)
     rtde_c.moveL(safe_pose6, SPEED, ACCELERATION)
-    open(servol)
-
-    print(f"Moving to Pose 7: {target_pose7}")
-    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)
-    rtde_c.moveL(target_pose7, SPEED, ACCELERATION)
-    stop_move(rtde_c)
-    print("Reached Pose 7.")
-    wait_for_key("Press Enter to continue after reaching Pose 7...")
-    close(servol)
-    rtde_c.moveL(safe_pose7, SPEED, ACCELERATION)
     open(servol)
 
 
