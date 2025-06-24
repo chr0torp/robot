@@ -27,7 +27,7 @@ try:
     print("Successfully connected to robot.")
 
     close(servol)
-    # open(servol)
+    open(servol)
 
     # --- Get Initial Position (Optional but good practice) ---
     initial_pose = rtde_r.getActualTCPPose()
