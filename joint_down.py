@@ -10,7 +10,7 @@ from move import *
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
-SPEED = 0.2                # TCP speed (m/s)
+SPEED = 0.3                # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
 # Define the fixed orientation (tool's Z-axis points down along base -Z)
