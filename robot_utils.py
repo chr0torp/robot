@@ -21,9 +21,9 @@ def quit_key(prompt="Press Enter to quit, press space to continue..."):
     This version is platform-independent.
     """
     key = input(prompt)
-    if key.strip() == "":
+    if key.strip() == "q":
         exit(0)
-    elif key.strip() == " ":
+    elif key.strip() == "":
         print("Continuing...")
     else:
         print("Unrecognized input, continuing...")
