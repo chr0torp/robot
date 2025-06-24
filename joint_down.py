@@ -27,6 +27,7 @@ try:
     print("Successfully connected to robot.")
 
     close(servol)
+    quit_key()
     open(servol)
 
     # --- Get Initial Position (Optional but good practice) ---
@@ -138,7 +139,7 @@ try:
 
     close(servol) 
 
-    
+
 except Exception as e:
     print(f"An error occurred: {e}")
 
