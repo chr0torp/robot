@@ -19,7 +19,7 @@ def open(servol):
     # Gradually increase duty cycle from closed (3.5) to open (6)
     for duty in [3.5 + i * 0.1 for i in range(int((6 - 3.5) / 0.1) + 1)]:
         servol.ChangeDutyCycle(duty)
-        time.sleep(1)  # Adjust for smoother/slower movement
+        time.sleep(0.5)  # Adjust for smoother/slower movement
     time.sleep(2)  # Wait for the servo to reach position
     servol.ChangeDutyCycle(0)
     print("Servo opened slowly.")
@@ -34,7 +34,7 @@ def close(servol):
     # Gradually decrease duty cycle from open (6) to closed (3.5)
     for duty in [6 - i * 0.1 for i in range(int((6 - 3.5) / 0.1) + 1)]:
         servol.ChangeDutyCycle(duty)
-        time.sleep(1)  # Adjust for smoother/slower movement
+        time.sleep(0.5)  # Adjust for smoother/slower movement
     time.sleep(2)  # Wait for the servo to reach position
     servol.ChangeDutyCycle(0)
     print("Servo closed slowly.")
