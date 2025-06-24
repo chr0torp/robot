@@ -26,13 +26,14 @@ try:
     rtde_r = RTDEReceive(ROBOT_IP)
     print("Successfully connected to robot.")
 
-    close(servol)
+    # close(servol)
     open(servol)
 
     # --- Get Initial Position (Optional but good practice) ---
     initial_pose = rtde_r.getActualTCPPose()
     print(f"Initial TCP Pose: {initial_pose}")
-    wait_for_key("Press Enter to continue after checking initial pose...")
+    # wait_for_key("Press Enter to continue after checking initial pose...")
+    quit_key()
 
     # --- Define Target X, Y Coordinates ---
     target_x1 = -0.5
