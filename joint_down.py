@@ -87,7 +87,7 @@ try:
     close(servol) 
     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
     open(servol) 
-    quit_key()
+    # quit_key()
 
     print(f"Moving to Pose 2: {target_pose2}")
     rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 
