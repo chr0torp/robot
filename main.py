@@ -33,8 +33,10 @@ try:
     print(f"Initial TCP Pose: {initial_pose}")
 
     picam2 = start_camera()
-    camera_thread = threading.Thread(target=show_camera_feed, args=(picam2,))
-    camera_thread.start()
+    show_camera_feed(picam2)
+
+    # camera_thread = threading.Thread(target=show_camera_feed, args=(picam2,))
+    # camera_thread.start()
 
     # --- Move to Initial Position ---
     target_x1 = -0.5
