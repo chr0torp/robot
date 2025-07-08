@@ -49,7 +49,23 @@ try:
     safe_pose2 = safe_pos(target_pose2)
 
 
-    time.sleep(10)
+    print(f"Moving to Pose 1: {target_pose1}")
+    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 1.")
+    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+
+
+    print(f"Moving to Pose 2: {target_pose2}")
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION) 
+    rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 2.")
+    rtde_c.moveL(safe_pose2, SPEED, ACCELERATION)  
+
+
+    time.sleep(1)
 
 
 except Exception as e:
