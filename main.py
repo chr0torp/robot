@@ -33,10 +33,23 @@ try:
     print(f"Initial TCP Pose: {initial_pose}")
 
     picam2 = start_camera()
-    show_camera_feed(picam2)  # This will run until 'q' is pressed
+    show_camera_feed(picam2) 
+
+    # --- Move to Initial Position ---
+    target_x1 = -0.5
+    target_y1 = -0.15
+
+    target_x2 = -0.5
+    target_y2 = 0.15
+
+    target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose1 = safe_pos(target_pose1)
+
+    target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
+    safe_pose2 = safe_pos(target_pose2)
 
 
-    quit_key()
+    time.sleep(10)
 
 
 except Exception as e:

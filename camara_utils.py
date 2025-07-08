@@ -24,15 +24,22 @@ def start_camera():
 def show_camera_feed(picam2):
     print("Displaying camera feed in OpenCV window.")
     cv2.namedWindow("Camera Feed", cv2.WINDOW_NORMAL)
+
     try:
         while True:
             frame_rgb = picam2.capture_array()
             frame_bgr = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
-            cv2.imshow("Camera Feed", frame_bgr)
+
+            cv2.imshow("live feed", frame_bgr)
+
+            # Wait for a key press for 1ms, and break if 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
+                print(" 'q' pressed. Exiting feed.")
                 break
+
     except Exception as e:
         print(f"An error occurred: {e}")
+
     finally:
         cv2.destroyAllWindows()
 
