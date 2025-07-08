@@ -162,6 +162,49 @@ def sort_index(lst: list, arr: np.ndarray):
 
     return lst
 
+def run(img):
+    """
+    Main function to run the line detection and clustering.
+    Args:
+        img (np.ndarray): The input image.
+    """
+    lower = 50
+    upper = lower * 2
+
+    edges = filter_canny_edges(lower, upper, img)
+
+
+    lines = hh_lines(edges)
+    lines = angle_between_lines(lines)
+
+    db, clustering, minus = dbscan(lines)
+    print(f"db object: {db}")
+    print(f"clustering: {clustering}")
+
+    index_list = index(db, clustering)
+
+    sorted_index = sort_index(index_list, lines)
+
+    print(f"index_list: {index_list}")
+    print(f"sorted_index: {sorted_index}")
+
+    i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
+
+    draw_lines(img, i0)
+
+    new_width = 400  # Desired width
+    new_height = 300  # Desired height
+
+    resized_img_lines = cv2.resize(img, (new_width, new_height))
+    cv2.imshow('lines', resized_img_lines)
+
+    resized_img_canny = cv2.resize(edges, (new_width, new_height))
+    cv2.imshow('Canny Image filter', resized_img_canny)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print("Line Detection using Hough Transform completed.")
+
 
 if __name__ == "__main__":
     # arr = np.array([[[2, 2, 2, 3]], [[2, 2, 3, 20]], [[2, 2, 3, 2]]])
