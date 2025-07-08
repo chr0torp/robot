@@ -22,9 +22,16 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 
 try:
     servol = start_servo()
+
     open(servol)
+    image = take_picture()
+    print("Image captured from camera.")
+    show_image(image)
+    save_image(image, 'captured_image.jpg')
+
+
     close(servol)
-    
+
 
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
@@ -38,7 +45,7 @@ try:
     image = take_picture()
     print("Image captured from camera.")
     show_image(image)
-    save_image(image, 'captured_image.jpg')
+    save_image(image, 'captured_image1.jpg')
 
     # --- Move to Initial Position ---
     target_x1 = -0.5
@@ -82,6 +89,6 @@ finally:
     stop_image()
     open(servol) 
     stop(servol)
-    rtde_c.disconnect()
+    # rtde_c.disconnect()
     print("Program finished.")
 
