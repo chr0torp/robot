@@ -4,7 +4,7 @@ import libcamera
 import time 
 
 
-def start_camera():
+def take_picture():
     print("Initializing camera...")
     picam2 = Picamera2()
     print("Configuring camera...")
@@ -16,32 +16,21 @@ def start_camera():
     print("Starting camera...")
     picam2.start()
     time.sleep(1)
-    print("Camera started.")
-    return picam2  
+    print("Capturing image...")
+    image = picam2.capture_array()
+    print("Image captured.")
+    picam2.close()
+    return image
 
-
-
-def show_camera_feed(picam2):
-    print("Displaying camera feed in OpenCV window.")
-    cv2.namedWindow("Camera Feed", cv2.WINDOW_NORMAL)
-
-    try:
-        while True:
-            frame_rgb = picam2.capture_array()
-            frame_bgr = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
-
-            cv2.imshow("live feed", frame_bgr)
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-    finally:
-        cv2.destroyAllWindows()
-
-
-
-def stop_camera(picam2):
-    print("Stopping camera and closing resources...")
-    picam2.stop()
+def show_image(image):
+    print("Displaying image in OpenCV window.")
+    cv2.imshow("Captured Image", image)
+    cv2.waitKey(0)  # Wait for a key press to close the window
     cv2.destroyAllWindows()
-    print("Camera stopped and resources released.")
+    print("Image display closed.")
+
+def stop_image():
+    cv2.destroyAllWindows()
+    print("Image capture stopped and all windows closed.")
+
+

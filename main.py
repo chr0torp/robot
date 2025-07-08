@@ -32,11 +32,9 @@ try:
     initial_pose = rtde_r.getActualTCPPose()
     print(f"Initial TCP Pose: {initial_pose}")
 
-    picam2 = start_camera()
-    show_camera_feed(picam2)
-
-    # camera_thread = threading.Thread(target=show_camera_feed, args=(picam2,))
-    # camera_thread.start()
+    image = take_picture()
+    print("Image captured from camera.")
+    show_image(image)
 
     # --- Move to Initial Position ---
     target_x1 = -0.5
@@ -75,15 +73,10 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
-    print("stop the camera thread if it is running")
-    if 'camera_thread' in locals() and camera_thread.is_alive():
-        print("Stopping camera thread...")
-        camera_thread.join()
-        pass
-
-    print("Stopping servo and camera...")
+    # --- Cleanup ---
+    print("Cleaning up resources...")
+    stop_image() 
     stop(servol)
-    stop_camera(picam2)
     if 'rtde_c' in locals() and rtde_c.isConnected():
         print("Stopping script and disconnecting.")
         rtde_c.stopScript()
