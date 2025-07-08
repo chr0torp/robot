@@ -33,7 +33,8 @@ try:
     print(f"Initial TCP Pose: {initial_pose}")
 
     picam2 = start_camera()
-    show_camera_feed(picam2) 
+    camera_thread = threading.Thread(target=camera_thread_function, args=(picam2,))
+    camera_thread.start()
 
     # --- Move to Initial Position ---
     target_x1 = -0.5
@@ -72,7 +73,13 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
-    # --- Disconnect ---
+    print("stop the camera thread if it is running")
+    if 'camera_thread' in locals() and camera_thread.is_alive():
+        print("Stopping camera thread...")
+        camera_thread.join()
+        pass
+
+    print("Stopping servo and camera...")
     stop(servol)
     stop_camera(picam2)
     if 'rtde_c' in locals() and rtde_c.isConnected():
