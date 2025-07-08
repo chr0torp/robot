@@ -22,6 +22,8 @@ def start_camera():
 
 
 def show_camera_feed(picam2):
+    print("Displaying camera feed in OpenCV window.")
+    cv2.namedWindow("Camera Feed", cv2.WINDOW_NORMAL)
 
     try:
         while True:
