@@ -29,6 +29,8 @@ try:
     show_image(image)
     save_image(image, 'captured_image.jpg')
 
+    run(image)
+
 
     close(servol)
 
