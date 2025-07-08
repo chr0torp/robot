@@ -33,4 +33,9 @@ def stop_image():
     cv2.destroyAllWindows()
     print("Image capture stopped and all windows closed.")
 
+def save_image(image, filename='captured_image.jpg'):
+    print(f"Saving image to {filename}...")
+    cv2.imwrite(filename, image)
+    print("Image saved successfully.")
+
 

@@ -22,6 +22,7 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 
 try:
     servol = start_servo()
+    open(servol) 
 
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
@@ -35,6 +36,7 @@ try:
     image = take_picture()
     print("Image captured from camera.")
     show_image(image)
+    save_image(image, 'captured_image.jpg')
 
     # --- Move to Initial Position ---
     target_x1 = -0.5
@@ -75,10 +77,9 @@ except Exception as e:
 finally:
     # --- Cleanup ---
     print("Cleaning up resources...")
-    stop_image() 
+    stop_image()
+    open(servol) 
     stop(servol)
-    if 'rtde_c' in locals() and rtde_c.isConnected():
-        print("Stopping script and disconnecting.")
-        rtde_c.stopScript()
+    rtde_c.disconnect()
     print("Program finished.")
 
