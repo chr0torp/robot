@@ -4,20 +4,6 @@ import libcamera
 import time 
 import threading
 
-def camera_thread_function(picam2):
-    """Function to be run in a separate thread for camera feed."""
-    print("Camera thread started. Displaying camera feed.")
-    try:
-        while True:
-            frame_rgb = picam2.capture_array()
-            frame_bgr = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
-            cv2.imshow("Live Feed", frame_bgr)
-
-    except Exception as e:
-        print(f"An error occurred in camera thread: {e}")
-    finally:
-        cv2.destroyAllWindows()
-        print("Camera thread stopping.")
 
 def start_camera():
     print("Initializing camera...")
