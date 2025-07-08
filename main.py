@@ -22,7 +22,9 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 
 try:
     servol = start_servo()
-    open(servol) 
+    open(servol)
+    close(servol)
+    
 
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
