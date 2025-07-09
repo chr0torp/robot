@@ -117,5 +117,8 @@ finally:
     print("Cleaning up resources...")
     stop_image()
     # stop(servol)
+
+
+    rtde_c.disconnect()
     print("Program finished.")
 
