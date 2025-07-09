@@ -11,7 +11,7 @@ from detect_utils import *
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
-Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
+# Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
 SPEED = 0.3                # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
@@ -41,7 +41,7 @@ try:
     # --- Move to Initial Position ---
     target_x0 = -0.5
     target_y0 = 0.0
-    target_z0 = 0.40
+    target_z0 = 0.60
 
     target_x1 = -0.5
     target_y1 = -0.15
@@ -93,6 +93,5 @@ finally:
     print("Cleaning up resources...")
     stop_image()
     stop(servol)
-    rtde_c.disconnect()
     print("Program finished.")
 

@@ -57,22 +57,22 @@ def stop(servol):
     print("Servo movement completed and GPIO cleaned up.")
     time.sleep(2)  # Wait for a moment before stopping completely
 
-if __name__ == "__main__":
-    try:
-        servol = start_servo()
+# if __name__ == "__main__":
+#     try:
+#         servol = start_servo()
 
-        open(servol)
-        close(servol)
-        time.sleep(4)  # Wait before re-opening
+#         open(servol)
+#         close(servol)
+#         time.sleep(4)  # Wait before re-opening
 
-        open(servol)  # Open again to demonstrate the servo can be reused
-        time.sleep(2)  # Wait before closing again
-        close(servol)
-        time.sleep(4)  # Wait before re-opening again
+#         open(servol)  # Open again to demonstrate the servo can be reused
+#         time.sleep(2)  # Wait before closing again
+#         close(servol)
+#         time.sleep(4)  # Wait before re-opening again
 
-        open(servol)  # Final open to show the servo can be controlled multiple times
+#         open(servol)  # Final open to show the servo can be controlled multiple times
 
-    except KeyboardInterrupt:
-        print("Program interrupted by user.")
-    finally:
-        stop(servol)  # Ensure the servo is stopped and GPIO is cleaned up
+#     except KeyboardInterrupt:
+#         print("Program interrupted by user.")
+#     finally:
+#         stop(servol)  # Ensure the servo is stopped and GPIO is cleaned up
