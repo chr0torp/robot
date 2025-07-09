@@ -8,7 +8,7 @@ from servo_utils import *
 from camara_utils import *
 from detect_utils import *
 
-middle_video = 1100
+middle_video = 1080/2
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
