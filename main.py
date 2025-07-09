@@ -78,7 +78,8 @@ try:
     show_image(image)
     save_image(image, 'captured_image1.jpg')
 
-    run(image)
+    height = run(image)
+    print(f"Detected height: {height}")
 
 
 

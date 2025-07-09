@@ -193,7 +193,7 @@ def run(img):
     lines = hh_lines(edges)
     lines = angle_between_lines(lines)
 
-    print(f"avg height: {avg_hight(lines)}")
+    avg = avg_hight(lines)
 
     if lines is None or len(lines) == 0:
         print("No lines detected after angle filtering. Skipping clustering.")
@@ -228,6 +228,8 @@ def run(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     print("Line Detection using Hough Transform completed.")
+    
+    return avg
 
 
 if __name__ == "__main__":
