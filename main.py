@@ -8,6 +8,7 @@ from servo_utils import *
 from camara_utils import *
 from detect_utils import *
 
+middle_video = 1100
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
@@ -56,8 +57,6 @@ try:
     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
     safe_pose1 = safe_pos(target_pose1)
 
-    target_pose2 = [target_x2, target_y2, Z_HEIGHT] + FIXED_ORIENTATION
-    safe_pose2 = safe_pos(target_pose2)
 
     print(f"Moving to initial position: {target_pose0}")
     rtde_c.moveL(target_pose0, FAST_SPEED, FAST_ACCELERATION)
@@ -67,19 +66,34 @@ try:
 
     print(f"Moving to Pose 1: {target_pose1}")
     rtde_c.moveL(safe_pose1, FAST_SPEED, FAST_ACCELERATION) 
-
     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 1.")
 
+    center_height = False
 
-    image = take_picture()
-    print("Image captured from camera at Pose 1.")
-    show_image(image)
-    save_image(image, 'captured_image1.jpg')
+    while not center_height:
+        image = take_picture()
+        print("Image captured from camera at Pose 1.")
+        show_image(image)
+        save_image(image, 'captured_image1.jpg')
 
-    height = run(image)
-    print(f"Detected height: {height}")
+        height = run(image)
+        print(f"Detected height: {height}")
+
+        if height < (middle_video-100):
+            Z_HEIGHT -= 0.01
+            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+            stop_move(rtde_c)
+
+        elif height > (middle_video+100):
+            Z_HEIGHT += 0.01
+        
+        else:
+            print(f"Height is within acceptable range: {Z_HEIGHT}")
+            center_height = True
+
+
 
 
 
