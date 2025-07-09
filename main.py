@@ -13,7 +13,8 @@ from detect_utils import *
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 # Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
 Z_HEIGHT = 0.36
-SPEED = 0.3                # TCP speed (m/s)
+SPEED = 0.3  
+FAST = 0.5              # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
 
 # Define the fixed orientation (tool's Z-axis points down along base -Z)
@@ -58,13 +59,14 @@ try:
     safe_pose2 = safe_pos(target_pose2)
 
     print(f"Moving to initial position: {target_pose0}")
-    rtde_c.moveL(target_pose0, SPEED, ACCELERATION)
+    rtde_c.moveL(target_pose0, FAST, ACCELERATION)
     stop_move(rtde_c)
     print("Reached initial position.")
 
 
     print(f"Moving to Pose 1: {target_pose1}")
-    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+    rtde_c.moveL(safe_pose1, FAST, ACCELERATION) 
+    
     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
     stop_move(rtde_c)
     print("Reached Pose 1.")
