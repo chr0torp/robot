@@ -193,8 +193,9 @@ def run(img):
     print(f"sorted_index: {sorted_index}")
 
     i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
+    i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
 
-    draw_lines(img, lines)
+    draw_lines(img, i0)
 
     new_width = 400  # Desired width
     new_height = 300  # Desired height
