@@ -191,6 +191,7 @@ def run(img):
 
     print(f"index_list: {index_list}")
     print(f"sorted_index: {sorted_index}")
+    print(f"lines: {lines}")
 
     i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
     i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
