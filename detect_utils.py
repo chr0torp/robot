@@ -162,6 +162,22 @@ def sort_index(lst: list, arr: np.ndarray):
 
     return lst
 
+def avg_hight(arr: np.ndarray):
+    """
+    Calculate the average height (y-coordinates) for each line in the array.
+    Returns a list of tuples (y1, y2) for each line.
+    """
+    heights = []
+    for line in arr:
+        y1 = line[0][1]
+        y2 = line[0][3]
+        heights.append(max(y1, y2))
+
+    avg = sum(heights) / len(heights)
+
+    return avg
+
+
 def run(img):
     """
     Main function to run the line detection and clustering.
@@ -176,6 +192,8 @@ def run(img):
 
     lines = hh_lines(edges)
     lines = angle_between_lines(lines)
+
+    print(f"avg height: {avg_hight(lines)}")
 
     if lines is None or len(lines) == 0:
         print("No lines detected after angle filtering. Skipping clustering.")
