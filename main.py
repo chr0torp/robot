@@ -83,11 +83,14 @@ try:
 
         if height < (middle_video-100):
             Z_HEIGHT -= 0.01
+
+            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
             stop_move(rtde_c)
 
         elif height > (middle_video+100):
             Z_HEIGHT += 0.01
+            center_height = True
         
         else:
             print(f"Height is within acceptable range: {Z_HEIGHT}")
