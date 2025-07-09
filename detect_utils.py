@@ -109,7 +109,7 @@ def dbscan(arr: np.ndarray):
     arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
     # print(arr)
 
-    db = DBSCAN(eps=50 , min_samples=2).fit(arr)
+    db = DBSCAN(eps=80 , min_samples=3).fit(arr)
     db.fit(arr)
     original_labels = db.labels_
 
