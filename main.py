@@ -22,9 +22,8 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 # --- End Configuration ---
 
 try:
-    servol = start_servo()
-
-    open(servol)
+    # servol = start_servo()
+    # open(servol)
 
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
@@ -91,10 +90,10 @@ except Exception as e:
 
 finally:
     # --- Cleanup ---
-    open(servol) 
+    # open(servol) 
     time.sleep(1)
     print("Cleaning up resources...")
     stop_image()
-    stop(servol)
+    # stop(servol)
     print("Program finished.")
 

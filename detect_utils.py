@@ -194,7 +194,7 @@ def run(img):
 
     i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
 
-    draw_lines(img, i0)
+    draw_lines(img, lines)
 
     new_width = 400  # Desired width
     new_height = 300  # Desired height
