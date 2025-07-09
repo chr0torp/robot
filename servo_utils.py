@@ -53,7 +53,7 @@ def stop(servol):
     print("Stopping servo")
     servol.ChangeDutyCycle(0)  # Stop the servo
     servol.stop()  # Stop the servo
-    GPIO.cleanup()  # Clean up GPIO settings
+    # GPIO.cleanup()  # Clean up GPIO settings
     print("Servo movement completed and GPIO cleaned up.")
     time.sleep(2)  # Wait for a moment before stopping completely
 

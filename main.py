@@ -75,6 +75,8 @@ try:
     print("Image captured from camera at Pose 1.")
     show_image(image)
 
+    run(image)
+
 
 
 
