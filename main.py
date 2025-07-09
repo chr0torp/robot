@@ -76,6 +76,7 @@ try:
     image = take_picture()
     print("Image captured from camera at Pose 1.")
     show_image(image)
+    save_image(image, 'captured_image1.jpg')
 
     run(image)
 
