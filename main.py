@@ -95,7 +95,9 @@ try:
             
             image = take_picture()
             clustering, sorted_index, lines = run(image)
-            lines = lines.tolist() if lines is not None else []
+            print(type(clustering), type(sorted_index), type(lines))
+            lines = lines.reshape(-1, 4) if lines is not None else []
+            lines = lines.tolist() 
             x_lines = [line[0][0] for line in lines] if lines else []
 
 
