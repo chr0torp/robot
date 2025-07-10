@@ -126,6 +126,7 @@ def search(rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELER
         print(f"points image: {point}")
         print(f"sorted_index: {sorted_index}")
         print(f"clustering: {clustering}")
+        break 
 
 
 
