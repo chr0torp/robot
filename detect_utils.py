@@ -263,7 +263,7 @@ def run(img):
 
     if lines is None or len(lines) == 0:
         print("No lines detected after angle filtering. Skipping clustering.")
-        return -1, -1, -1
+        return -1, -1, lines
 
     db, clustering, minus = dbscan(lines)
     # print(f"db object: {db}")

@@ -136,7 +136,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         print("1")
         print(f"lines: {lines}")
 
-        if lines == -1:
+        if len(points) == 0:
             print("No lines detected after angle filtering. Skipping clustering.")
             max_y -= 0.02
             min_dist = 10000
