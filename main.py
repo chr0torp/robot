@@ -91,10 +91,13 @@ try:
 
         center = False
         while not center:
+            last_pos = 0
+
             image = take_picture()
             clustering =  run(image)
 
             if clustering > 1:
+                print(f"last_pos: {last_pos}")
                 print(f"Clustering detected: {clustering}")
                 break
 
@@ -120,6 +123,7 @@ try:
                         continue
 
                 elif needle_pos > (mid_n+25):
+                    last_pos = needle_pos
                     if needle_pos < (mid_n+150):
                         target_y1 -= 0.0025
                     else:
@@ -130,6 +134,7 @@ try:
                     stop_move(rtde_c)
 
                 elif needle_pos < (mid_n-25):
+                    last_pos = needle_pos
                     if needle_pos > (mid_n-150):
                         target_y1 += 0.0025
                     else:
