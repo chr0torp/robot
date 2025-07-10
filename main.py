@@ -70,6 +70,8 @@ try:
     stop_move(rtde_c)
     print("Reached Pose 1.")
 
+
+
     center_height = False
 
     while not center_height:
@@ -79,18 +81,31 @@ try:
         save_image(image, 'captured_image1.jpg')
 
         height = run(image)
+        if height == -1:
+            print("No lines detected after angle filtering. Skipping clustering.")
+            break
+
         print(f"Detected height: {height}")
 
-        if height > (middle_video+100):
-            Z_HEIGHT -= 0.01
+        if height > (middle_video+50):
+            if height < (middle_video+100):
+                Z_HEIGHT -= 0.005
+            else:
+                Z_HEIGHT -= 0.01
 
             target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
             stop_move(rtde_c)
 
-        elif height < (middle_video-100):
-            Z_HEIGHT += 0.01
-            center_height = True
+        elif height < (middle_video-50):
+            if height > (middle_video-100):
+                Z_HEIGHT += 0.005
+            else:
+                Z_HEIGHT += 0.01
+
+            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+            stop_move(rtde_c)
         
         else:
             print(f"Height is within acceptable range: {Z_HEIGHT}")
