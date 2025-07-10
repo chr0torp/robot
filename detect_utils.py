@@ -133,16 +133,26 @@ def index(lst: list, value: int):
         list[v].append(i)
     return list
 
+def points(arr: np.ndarray):
+    """
+    Extract points from the array.
+    Args:
+        arr (np.ndarray): A numpy array of shape (n, 1, 4) where each sub-array
+                          contains four coordinates representing two points of a line.
+    Returns:
+        list: A list of points extracted from the array.
+    """
+    arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
+    points = arr.tolist()
+    return points
+
 # def sort_index(lst: list, points: list):
 def sort_index(lst: list, arr: np.ndarray):
     # arr: np.ndarray
     """
     """
 
-
-
-    arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
-    points = arr.tolist()
+    points = points(arr)
     print(f"points: {points}")
 
     n = len(lst)
