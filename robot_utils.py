@@ -91,7 +91,7 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
     last_pos = needle_pos
     if needle_pos > (mid_n + 25):
         if needle_pos < (mid_n + 150):
-            target_y1 -= 0.0025
+            target_y1 -= 0.005
         else:
             target_y1 -= 0.005
 
@@ -101,7 +101,7 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
 
     elif needle_pos < (mid_n - 25):
         if needle_pos > (mid_n - 150):
-            target_y1 += 0.0025
+            target_y1 += 0.005
         else:
             target_y1 += 0.005
 
