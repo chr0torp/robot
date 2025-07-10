@@ -34,6 +34,7 @@ try:
 
     initial_pose = rtde_r.getActualTCPPose()
     print(f"Initial TCP Pose: {initial_pose}")
+    wait_for_key()
 
     # image = take_picture()
     # print("Image captured from camera.")
@@ -74,7 +75,6 @@ try:
     Z_HEIGHT = find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
-    wait_for_key()
 
 
 
