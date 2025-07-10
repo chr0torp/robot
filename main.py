@@ -115,9 +115,9 @@ try:
 
                 elif needle_pos > (mid+25):
                     if needle_pos < (mid+100):
-                        target_y1 += 0.005
+                        target_y1 -= 0.005
                     else:
-                        target_y1 += 0.01
+                        target_y1 -= 0.01
 
                     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
                     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
@@ -125,9 +125,9 @@ try:
 
                 elif needle_pos < (mid-25):
                     if needle_pos > (mid-100):
-                        target_y1 -= 0.005
+                        target_y1 += 0.005
                     else:
-                        target_y1 -= 0.01
+                        target_y1 += 0.01
                     
                     target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
                     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
