@@ -253,7 +253,7 @@ def run(img):
 
     if lines is None or len(lines) == 0:
         print("No lines detected after angle filtering. Skipping clustering.")
-        return -1
+        return -1, -1
 
     db, clustering, minus = dbscan(lines)
     print(f"db object: {db}")
@@ -286,7 +286,7 @@ def run(img):
     cv2.destroyAllWindows()
     print("Line Detection using Hough Transform completed.")
     
-    return clustering
+    return clustering, sorted_index
 
 
 if __name__ == "__main__":

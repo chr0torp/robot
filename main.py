@@ -94,9 +94,11 @@ try:
         while not center:
             
             image = take_picture()
-            clustering =  run(image)
+            clustering, sorted_index =  run(image)
 
             if clustering > 1:
+                avg_list = [sum(i) / len(i) for i in sorted_index]
+                print(f"Average positions: {avg_list}")
                 print(f"last_pos: {last_pos}")
                 print(f"Clustering detected: {clustering}")
                 break
