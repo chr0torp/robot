@@ -117,13 +117,13 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
     """
     last_pos = 0
     min_dist = 10000
+    current_frame_needle = False
+    current_frame_pos = 0
 
 
     list_of_positions = []
     max_y = start_y
 
-    tracked_needle_id = None 
-    last_known_needle_pos = None
 
     while max_y > -0.15:
         move = [start_x, max_y, Z_HEIGHT] + FIXED_ORIENTATION
@@ -137,34 +137,35 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
 
         if lines == -1:
             max_y -= 0.02
+            min_dist = 10000
+            last_pos = 0
             continue
         
         print("2")
         avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
         print(f"\n Average positions: {avg_list} \n")
 
-        current_frame_needles = []
+        best_candidate_x = -1 
+        best_candidate_dist = 10000
+
         for i in avg_list:
-            if mid_n - 100 < i < mid_n + 100:
-                current_frame_needles.append(i)
-                last_pos = i
-        
-        if current_frame_needles:
-            if tracked_needle_id is None:
-                tracked_needle_id = hash(current_frame_needles[0])
-                list_of_positions.append(max_y)
-                last_known_needle_pos = current_frame_needles[0]
+            if mid_n < i < mid_n + 100:
+                if last_pos != 0:
+                    dist = abs(i - last_pos)
+                    if dist < best_candidate_dist:
+                        best_candidate_dist = dist
+                        best_candidate_x = i
+                else:
+                    best_candidate_x = i
+                    break
 
-            else:
-                list_of_positions.append(max_y)
-                last_known_needle_pos = current_frame_needles[0]
-
+        if best_candidate_x != -1: 
+            list_of_positions.append(max_y) 
+            last_pos = best_candidate_x 
+            needle_found_in_sweep = True 
         else:
-            if tracked_needle_id is not None:
-                print(f"Needle lost at height {max_y}, last known position: {last_known_needle_pos}")
-            
-            tracked_needle_id = None
-            last_known_needle_pos = None
+            min_dist = 10000
+            last_pos = 0
 
                 
         max_y -= 0.02
