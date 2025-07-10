@@ -54,7 +54,7 @@ try:
     # target_y1 = -0.15
 
     target_x1 = -0.5
-    target_y1 = 0.05
+    target_y1 = 0.1
 
     target_x2 = -0.5
     target_y2 = -0.15
