@@ -117,7 +117,7 @@ try:
 
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
                     for i in avg_list:
-                        dist = i - last_pos
+                        dist = last_pos - i
                         print(f"Distance from last position: {dist}")
                         if abs(dist) < closest:
                             closest = abs(last_pos - i)
@@ -131,7 +131,6 @@ try:
                     print(f"Needle position: {needle_pos}")
                     if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
                         print(f"Needle is not centered, adjusting position: {needle_pos}")
-                        quit_key()
 
                         target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                     else:
@@ -141,6 +140,7 @@ try:
                             closest = sec_closest
                             needle_pos = sec_needle_pos
                             n = 0
+                            quit_key()
                             print(f"Using second closest needle position: {needle_pos}")
                             target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
