@@ -84,6 +84,7 @@ try:
 
     correct_pos = []
     last_pos = 0
+    found = False
 
     while target_y > -0.15:
 
@@ -116,13 +117,15 @@ try:
                     sec_closest = 10000
 
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+                    print(f"Average positions: {avg_list}")
+                    
                     for i in avg_list:
                         dist = i - last_pos
                         print(f"Distance from last position: {dist}")
                         if abs(dist) < closest:
                             closest = abs(last_pos - i)
                             needle_pos = i
-                        if dist > 0 and abs(dist) < sec_closest and abs(dist) != closest:
+                        if dist > 0 and abs(dist) < sec_closest and abs(dist) > closest:
                             print(f"Found second closest needle position: {dist}")
                             n += 1
                             if abs(dist) < sec_closest:
@@ -147,6 +150,9 @@ try:
                         
                         else:
                             center = True
+                            found = True
+                            break
+
 
 
                     print(f"Average positions: {avg_list}")
@@ -182,6 +188,7 @@ try:
                         print(f"Needle is centered at: {needle_pos}")
                         correct_pos.append(needle_pos)
                         center = True
+                        found = True
                     
 
 
