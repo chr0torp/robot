@@ -98,8 +98,20 @@ try:
                 print(f"Needle position: {needle_pos}")
 
                 if needle_pos == -1:
-                    print("No valid center detected, exiting.")
-                    continue
+                    print("No valid center detected")
+                    target_x1 += 0.005
+
+                    target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+                    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+                    stop_move(rtde_c)
+                    
+                    image = take_picture()
+                    clustering =  run(image)
+
+                    if clustering == -1:
+                        break
+                    else:
+                        continue
 
                 elif needle_pos > (mid+25):
                     if needle_pos < (mid+100):
