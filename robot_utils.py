@@ -53,10 +53,10 @@ def find_height(mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, 
         show_image(image)
         save_image(image, 'captured_image1.jpg')
 
-        height = run(image)
+        height = run_height(image)
         if height == -1:
             print("No lines detected after angle filtering. Skipping clustering.")
-            return Z_HEIGHT
+            return Z_HEIGHT, False
             
 
         print(f"Detected height: {height}")
@@ -85,5 +85,42 @@ def find_height(mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, 
             print(f"Height is within acceptable range: {Z_HEIGHT}")
             center_height = True
 
-    return Z_HEIGHT
+    return Z_HEIGHT, True
+
+def find_center(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION):
+    """
+    Find the center position of the object by adjusting the robot's position based on camera feedback.
+    """
+    center = False
+
+    while not center:
+        image = take_picture()
+        print("Image captured from camera at Pose 1.")
+        show_image(image)
+        save_image(image, 'captured_image1.jpg')
+
+        center_x = run_center(image)
+        if center_x == -1:
+            print("No lines detected after angle filtering. Skipping clustering.")
+            return target_x1, target_y1, Z_HEIGHT, False
+
+        print(f"Detected center x-coordinate: {center_x}")
+
+        if center_x < 540:
+            target_x1 -= 0.01
+            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+            stop_move(rtde_c)
+
+        elif center_x > 540:
+            target_x1 += 0.01
+            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+            stop_move(rtde_c)
+
+        else:
+            print(f"Center is within acceptable range: {target_x1}")
+            center = True
+
+    return target_x1, target_y1, Z_HEIGHT, True
 

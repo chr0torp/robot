@@ -180,6 +180,25 @@ def avg_hight(arr: np.ndarray):
     avg = sum(heights) / len(heights)
     return avg
 
+def run_height(img):
+
+    lower = 50
+    upper = lower * 2
+
+    edges = filter_canny_edges(lower, upper, img)
+
+
+    lines = hh_lines(edges)
+    lines = angle_between_lines(lines)
+
+    avg = avg_hight(lines)
+
+    if lines is None or len(lines) == 0:
+        print("No lines detected after angle filtering. Skipping clustering.")
+        return -1
+    
+    return avg
+
 
 def run(img):
     """

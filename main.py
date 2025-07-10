@@ -77,8 +77,15 @@ try:
 
 
 
-    Z_HEIGHT = find_height(safe_mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    Z_HEIGHT, bo = find_height(safe_mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
+
+    if not bo:
+        print("No valid height detected, exiting.")
+        rtde_c.disconnect()
+        exit(1)
+
+    # if bo:
 
 
 
