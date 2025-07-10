@@ -103,7 +103,10 @@ try:
 
     
     for i in no_duplicates:
-        target_y = i
+        print(f"Processing position: {i}")
+        print(type(i))
+
+        target_y = float(i)
 
         target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
