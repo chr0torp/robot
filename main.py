@@ -82,7 +82,6 @@ try:
     Z_HEIGHT, bo = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
-    last_pos = 0
     correct_pos = []
 
     while target_y > -0.15:
@@ -100,7 +99,7 @@ try:
         if bo:
 
             center = False
-            # last_pos = 0
+            last_pos = 0
             while not center:
                 
                 image = take_picture()
@@ -117,59 +116,35 @@ try:
                     sec_closest = 10000
 
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
-
-                    target_needle_pos = -1 # Initialize with a value indicating no suitable needle found
-                    min_positive_dist = float('inf')
-
-
                     for i in avg_list:
                         dist = i - last_pos
+                        if abs(dist) < closest:
+                            closest = abs(last_pos - i)
+                            needle_pos = i
+                        if dist > 0 and not abs(dist) < closest:
+                            n += 1
+                            if abs(dist) < sec_closest:
+                                sec_closest = abs(dist)
+                                sec_needle_pos = i
 
-                        if dist > 0 and dist < min_positive_dist: # Only consider positive distances (right side)
-                            min_positive_dist = dist
-                            target_needle_pos = i
-
-                        if target_needle_pos != -1:
-                            needle_pos = target_needle_pos
-                            print(f"Using new needle from the right (second closest by your definition): {needle_pos}")
-
-                            if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
-                                target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                            else:
-                                print(f"New needle is centered at: {needle_pos}")
-                                correct_pos.append(needle_pos)
-                                center = True
-                        else:
-                            pass
-
-
-                    #     if abs(dist) < closest:
-                    #         closest = abs(last_pos - i)
-                    #         needle_pos = i
-                    #     if dist > 0 and not abs(dist) < closest:
-                    #         n += 1
-                    #         if abs(dist) < sec_closest:
-                    #             sec_closest = abs(dist)
-                    #             sec_needle_pos = i
-
-                    # print(f"Needle position: {needle_pos}")
-                    # if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
-                    #     target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                    # else:
-                    #     print(f"Needle is centered at: {needle_pos}")
-                    #     correct_pos.append(needle_pos)
-                    #     if n > 0:
-                    #         needle_pos = sec_needle_pos
-                    #         print(f"Using second closest needle position: {needle_pos}")
+                    print(f"Needle position: {needle_pos}")
+                    if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
+                        target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                    else:
+                        print(f"Needle is centered at: {needle_pos}")
+                        correct_pos.append(needle_pos)
+                        if n > 0:
+                            needle_pos = sec_needle_pos
+                            print(f"Using second closest needle position: {needle_pos}")
                         
-                    #     else:
-                    #         center = True
+                        else:
+                            center = True
 
 
                     print(f"Average positions: {avg_list}")
                     print(f"last_pos: {last_pos}")
                     print(f"Clustering detected: {clustering}")
-                    # break
+                    
 
                 if clustering < 2 and clustering != -1:
                     print("\n go go go \n")
