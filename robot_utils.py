@@ -125,7 +125,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
     max_y = start_y
 
 
-    while max_y > -0.15:
+    while max_y > 0.0:
         move = [start_x, max_y, Z_HEIGHT] + FIXED_ORIENTATION
         rtde_c.moveL(move, SPEED, ACCELERATION)
         stop_move(rtde_c)
