@@ -100,6 +100,7 @@ try:
 
 
             if clustering > 1:
+                print(f"\n last_pos: {last_pos} \n")
                 closest = 10000
                 avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
                 for i in avg_list:
