@@ -41,10 +41,9 @@ def safe_pos(dest):
     return [dest[0], dest[1], dest[2] + 0.1, dest[3], dest[4], dest[5]]
 
 
-def find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION):
+def find_height(mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION):
     """    Find the height of the object by adjusting the robot's position based on camera feedback.
     """
-    mid = 540
 
     center_height = False
 
