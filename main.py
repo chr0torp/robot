@@ -11,6 +11,8 @@ from detect_utils import *
 mid = 540
 safe_mid = 800
 
+mid_n = 1040
+
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 # Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
@@ -117,8 +119,8 @@ try:
                     else:
                         continue
 
-                elif needle_pos > (mid+25):
-                    if needle_pos < (mid+150):
+                elif needle_pos > (mid_n+25):
+                    if needle_pos < (mid_n+150):
                         target_y1 -= 0.0025
                     else:
                         target_y1 -= 0.01
@@ -127,8 +129,8 @@ try:
                     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
                     stop_move(rtde_c)
 
-                elif needle_pos < (mid-25):
-                    if needle_pos > (mid-150):
+                elif needle_pos < (mid_n-25):
+                    if needle_pos > (mid_n-150):
                         target_y1 += 0.0025
                     else:
                         target_y1 += 0.01
