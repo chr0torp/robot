@@ -123,6 +123,7 @@ try:
                             closest = abs(last_pos - i)
                             needle_pos = i
                         if dist > 0 and abs(dist) < sec_closest and abs(dist) != closest:
+                            print(f"Found second closest needle position: {dist}")
                             n += 1
                             if abs(dist) < sec_closest:
                                 sec_closest = abs(dist)
