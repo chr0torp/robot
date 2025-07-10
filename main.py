@@ -94,7 +94,7 @@ try:
 
 
     if bool:
-        correct_pos_x = search(rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         print(f"Correct positions found: {correct_pos_x}") 
 
 
