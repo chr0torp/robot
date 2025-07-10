@@ -128,7 +128,7 @@ try:
                         continue
 
                 if needle_pos != -1:
-                    adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                    target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
                 else:
                     print(f"Needle is centered at: {needle_pos}")
