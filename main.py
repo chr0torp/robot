@@ -83,6 +83,7 @@ try:
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
     correct_pos = []
+    last_pos = 0
 
     while target_y > -0.15:
 
@@ -99,7 +100,6 @@ try:
         if bo:
 
             center = False
-            last_pos = 0
             while not center:
                 
                 image = take_picture()
