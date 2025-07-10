@@ -8,7 +8,6 @@ from servo_utils import *
 from camara_utils import *
 from detect_utils import *
 
-middle_video = 1080/2
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
@@ -72,45 +71,10 @@ try:
 
 
 
-    center_height = False
+    Z_HEIGHT = find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
-    while not center_height:
-        image = take_picture()
-        print("Image captured from camera at Pose 1.")
-        show_image(image)
-        save_image(image, 'captured_image1.jpg')
-
-        height = run(image)
-        if height == -1:
-            print("No lines detected after angle filtering. Skipping clustering.")
-            break
-
-        print(f"Detected height: {height}")
-
-        if height > (middle_video+50):
-            if height < (middle_video+100):
-                Z_HEIGHT -= 0.005
-            else:
-                Z_HEIGHT -= 0.01
-
-            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
-            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-            stop_move(rtde_c)
-
-        elif height < (middle_video-50):
-            if height > (middle_video-100):
-                Z_HEIGHT += 0.005
-            else:
-                Z_HEIGHT += 0.01
-
-            target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
-            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-            stop_move(rtde_c)
-        
-        else:
-            print(f"Height is within acceptable range: {Z_HEIGHT}")
-            center_height = True
-
+    wait_for_key()
 
 
 
