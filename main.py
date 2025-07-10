@@ -92,6 +92,10 @@ try:
             image = take_picture()
             clustering =  run(image)
 
+            if clustering > 1:
+                print(f"Clustering detected: {clustering}")
+                break
+
             if clustering < 2 and clustering != -1:
                 print("\n go go go \n")
                 needle_pos = run_center(image)
