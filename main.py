@@ -112,7 +112,7 @@ try:
                     image = take_picture()
                     clustering =  run(image)
 
-                    if clustering == -1:
+                    if clustering == -1 or clustering > 1:
                         break
                     else:
                         continue
