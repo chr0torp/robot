@@ -84,6 +84,7 @@ try:
 
     correct_pos = []
     last_pos = 0
+    processed_needle_x_coords = [] # New list to store x-coordinates of processed needles
 
     while target_y > -0.15:
 
@@ -96,92 +97,92 @@ try:
 
             Z_HEIGHT, bo = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
-        center = False
-        while not center:
 
-            image = take_picture()
-            clustering, sorted_index, lines = run(image)
-            point = points(lines)
-            print(f"points image: {point}")
+        if bo:
 
-            if clustering > 1:
-                print(f"\n last_pos: {last_pos} \n")
+            center = False
+            while not center:
+                
+                image = take_picture()
+                clustering, sorted_index, lines = run(image)
+                point = points(lines)
+                print(f"points image: {point}")
 
-                # Re-initialize for each detection frame
-                target_needle_pos_from_right = -1
-                min_positive_dist = float('inf')
 
-                avg_list = [sum(group[idx][0] for idx in range(len(group))) / len(group) for group in sorted_index] # Corrected way to sum group points
-                print(f"Average positions: {avg_list}")
+                if clustering > 1:
+                    print(f"\n last_pos: {last_pos} \n")
+                    
+                    avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+                    
+                    # --- New Logic for selecting the next needle ---
+                    next_needle_candidate = -1
+                    min_dist_right = float('inf')
 
-                # Find the needle that is to the right (greater x-coordinate) of the last_pos
-                # and is the "closest" among those on the right.
-                for i in avg_list:
-                    dist = i - last_pos
-                    if dist > 0 and dist < min_positive_dist: # Only consider positive distances (right side)
-                        min_positive_dist = dist
-                        target_needle_pos_from_right = i
+                    # Filter out needles already processed and find the closest one to the right of last_pos
+                    for i in avg_list:
+                        if i > last_pos and i not in processed_needle_x_coords:
+                            dist = i - last_pos
+                            if dist < min_dist_right:
+                                min_dist_right = dist
+                                next_needle_candidate = i
 
-                if target_needle_pos_from_right != -1:
-                    needle_pos = target_needle_pos_from_right
-                    print(f"Targeting new needle from the right: {needle_pos}")
+                    if next_needle_candidate != -1:
+                        needle_pos = next_needle_candidate
+                        print(f"Next needle position (to the right): {needle_pos}")
 
-                    if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50): # Increased threshold for adjustment
-                        print(f"Needle is not centered, adjusting position: {needle_pos}")
-                        # quit_key() # Removed quit_key for automatic operation
+                        if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
+                            print(f"Needle is not centered, adjusting position: {needle_pos}")
+                            quit_key()
+                            target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                        else:
+                            print(f"Needle is centered at: {needle_pos}")
+                            correct_pos.append(needle_pos)
+                            processed_needle_x_coords.append(needle_pos) # Mark as processed
+                            last_pos = needle_pos # Update last_pos to the newly centered needle
+                            center = True # Move to the next `while target_y` iteration to find new needles by changing y
+                    else:
+                        # No new needles to the right found in this detection.
+                        # This could mean all needles in this row are processed, or detection failed.
+                        # You might need to adjust target_y or break out of the loop if all done.
+                        print("No new needles found to the right. Moving to next row or finishing.")
+                        center = True # Exit inner loop to allow outer loop to change target_y
+                    # --- End New Logic ---
+
+                    print(f"Average positions: {avg_list}")
+                    print(f"last_pos: {last_pos}")
+                    print(f"Clustering detected: {clustering}")
+                    
+
+                if clustering < 2 and clustering != -1:
+                    print("\n go go go \n")
+                    needle_pos = run_center(image)
+                    print(f"Needle position: {needle_pos}")
+
+                    if needle_pos == -1:
+                        print("No valid center detected")
+                        target_y += 0.005
+
+                        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+                        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+                        stop_move(rtde_c)
+                        
+                        image = take_picture()
+                        clustering =  run(image)
+
+                        if clustering == -1 or clustering > 1:
+                            break
+                        else:
+                            continue
+
+                    if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
                         target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                            
                     else:
                         print(f"Needle is centered at: {needle_pos}")
                         correct_pos.append(needle_pos)
-                        last_pos = needle_pos # IMPORTANT: Update last_pos to the *centered* needle
-                        center = True # Mark as centered for *this* needle, exit inner loop
-                else:
-                    # This means clustering > 1, but no new needle found to the right of last_pos.
-                    # It might mean we are past the last needle, or the detection is noisy.
-                    print("Clustering > 1, but no new needle found to the right of last_pos. Moving slightly to search.")
-                    target_y -= 0.005 # Small step to try and bring a new needle into view
-                    target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-                    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                    stop_move(rtde_c)
-                    # Do not set center=True or break, allow loop to re-evaluate detections.
-
-            elif clustering == 1: # Explicitly checking for a single cluster now
-                print("\n Single cluster detected \n")
-                needle_pos = run_center(image)
-                print(f"Needle position: {needle_pos}")
-
-                if needle_pos == -1:
-                    print("No valid center detected for single cluster. Moving slightly.")
-                    target_y += 0.005 # Nudge in positive y (towards the right/new needles)
-                    target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-                    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                    stop_move(rtde_c)
-                    continue # Continue to next iteration of while not center to re-take picture
-
-                if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
-                    target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                else:
-                    print(f"Needle is centered at: {needle_pos}")
-                    correct_pos.append(needle_pos)
-                    last_pos = needle_pos # IMPORTANT: Update last_pos after centering
-                    center = True # Mark as centered for *this* needle
-
-            elif clustering == -1: # No clusters detected at all
-                print("No clusters detected (-1). Moving slightly to search.")
-                target_y -= 0.005 # Move slightly along scan direction to find something
-                target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-                rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                stop_move(rtde_c)
-                # Do not set center=True, allow loop to re-evaluate
-
-        # AFTER a needle has been centered (center == True for current needle),
-        # move to the next scan position to find the next needle.
-        print(f"Needle handled. Moving to next scan position. Current target_y: {target_y}")
-        target_y -= 0.02 # Move further along the scan path to find the next needle
-        bo = False # Reset bo to re-check Z_HEIGHT for the new target_y position.
-        # The while not bo loop will then execute to adjust Z if needed for the new target_y.
-
-
+                        processed_needle_x_coords.append(needle_pos) # Mark as processed
+                        last_pos = needle_pos # Update last_pos
+                        center = True
 
 
 
