@@ -99,7 +99,6 @@ try:
             print(f"points image: {point}")
 
 
-
             if clustering > 1:
                 avg_list = [sum(point[idx] for idx in group) / len(group) for group in sorted_index]
                 print(f"Average positions: {avg_list}")
