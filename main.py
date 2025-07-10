@@ -95,7 +95,11 @@ try:
 
     if bool:
         correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
-        print(f"Correct positions found: {correct_pos_x}") 
+        my_formatted_list = ['%.2f' % elem for elem in correct_pos_x]
+        no_duplicates = list(set(my_formatted_list))
+        print(f"Correct positions found: {correct_pos_x}")
+        print(f"Formatted positions: {my_formatted_list}")
+        print(f"Formatted positions without duplicates: {no_duplicates}") 
 
 
 

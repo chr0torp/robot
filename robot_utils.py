@@ -138,7 +138,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
 
         if len(point) == 0:
             print("No lines detected after angle filtering. Skipping clustering.")
-            max_y -= 0.002
+            max_y -= 0.005
             min_dist = 10000
             last_pos = 0
             continue
@@ -170,7 +170,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
             last_pos = 0
 
                 
-        max_y -= 0.002
+        max_y -= 0.005
 
         print(f"points image: {point}")
         print(f"sorted_index: {sorted_index}")
