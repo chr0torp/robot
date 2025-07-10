@@ -103,10 +103,12 @@ try:
 
     
     for i in no_duplicates:
-        target_x1 = float(i)
-        target_y1 = target_y
+        target_y = i
 
-        target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+        stop_move(rtde_c)
+        quit_key()
         print(f"Moving to corrected position: {target_pose1}")
     
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
