@@ -90,9 +90,9 @@ try:
     if bo:
 
         center = False
+        last_pos = 0
         while not center:
-            last_pos = 0
-
+            
             image = take_picture()
             clustering =  run(image)
 
