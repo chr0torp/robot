@@ -215,8 +215,6 @@ def run(img):
     lines = hh_lines(edges)
     lines = angle_between_lines(lines)
 
-    avg = avg_hight(lines)
-
     if lines is None or len(lines) == 0:
         print("No lines detected after angle filtering. Skipping clustering.")
         return -1
@@ -224,6 +222,7 @@ def run(img):
     db, clustering, minus = dbscan(lines)
     print(f"db object: {db}")
     print(f"clustering: {clustering}")
+    print(f"minus: {minus}")
 
     index_list = index(db, clustering)
 
@@ -251,7 +250,7 @@ def run(img):
     cv2.destroyAllWindows()
     print("Line Detection using Hough Transform completed.")
     
-    return avg
+    return clustering
 
 
 if __name__ == "__main__":

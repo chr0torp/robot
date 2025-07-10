@@ -85,7 +85,12 @@ try:
         rtde_c.disconnect()
         exit(1)
 
-    # if bo:
+    if bo:
+        image = take_picture()
+        clustering =  run(image)
+
+        if clustering < 2 and clustering != -1:
+            print("\n go go go \n")
 
 
 
