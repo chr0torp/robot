@@ -138,6 +138,7 @@ try:
                         correct_pos.append(needle_pos)
                         if n > 0:
                             needle_pos = sec_needle_pos
+                            n -= 1
                             print(f"Using second closest needle position: {needle_pos}")
                             target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
