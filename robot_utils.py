@@ -88,7 +88,6 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
     """
     Adjusts the needle position based on its current position relative to the midpoint.
     """
-    last_pos = needle_pos
     if needle_pos > (mid_n + 25):
         if needle_pos < (mid_n + 150):
             target_y1 -= 0.0025
@@ -109,5 +108,26 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
         stop_move(rtde_c)
     
-    return target_y1, last_pos
+    return target_y1
 
+
+def search(rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION):
+    """
+    
+    """
+    list_of_positions = []
+    max_y = start_y
+
+    while max_y > -0.15:
+        image = take_picture()
+        clustering, sorted_index, lines = run(image)
+        point = points(lines)
+
+        print(f"points image: {point}")
+        print(f"sorted_index: {sorted_index}")
+        print(f"clustering: {clustering}")
+
+
+
+    
+    return list_of_positions

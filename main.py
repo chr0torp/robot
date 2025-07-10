@@ -79,122 +79,23 @@ try:
 
 
 
-    Z_HEIGHT, bo = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
-    correct_pos = []
-    last_pos = 0
-    found = False
 
-    while target_y > -0.15:
+    while not bool:
+        target_y -= 0.02
 
-        while not bo:
-            target_y -= 0.02
+        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+        stop_move(rtde_c)
 
-            target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-            rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-            stop_move(rtde_c)
-
-            Z_HEIGHT, bo = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
 
-        if bo:
-
-            center = False
-            while not center:
-                
-                image = take_picture()
-                clustering, sorted_index, lines = run(image)
-                point = points(lines)
-                print(f"points image: {point}")
-
-
-                if clustering > 1:
-                    print(f"\n last_pos: {last_pos} \n")
-                    n = 0
-
-                    closest = 10000
-                    sec_closest = 10000
-
-                    avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
-                    print(f"Average positions: {avg_list}")
-                    
-                    for i in avg_list:
-                        dist = i - last_pos
-                        print(f"Distance from last position: {dist}")
-                        if abs(dist) < closest:
-                            closest = abs(last_pos - i)
-                            needle_pos = i
-                        if dist > 0 and abs(dist) < sec_closest and abs(dist) > closest:
-                            print(f"Found second closest needle position: {dist}")
-                            n += 1
-                            if abs(dist) < sec_closest:
-                                sec_closest = abs(dist)
-                                sec_needle_pos = i
-
-                    print(f"Needle position: {needle_pos}")
-                    if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
-                        print(f"Needle is not centered, adjusting position: {needle_pos}")
-
-                        target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                    else:
-                        print(f"Needle is centered at: {needle_pos}")
-                        correct_pos.append(needle_pos)
-                        if needle_pos > (avg_list[-1] - 50) and needle_pos < (avg_list[-1] + 50):
-                            break
-
-                        if n > 0:
-                            closest = sec_closest
-                            needle_pos = sec_needle_pos
-                            n = 0
-                            quit_key()
-                            print(f"Using second closest needle position: {needle_pos}")
-                            target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                        
-                        else:
-                            center = True
-                            found = True
-                            break
-
-
-
-                    print(f"Average positions: {avg_list}")
-                    print(f"last_pos: {last_pos}")
-                    print(f"Clustering detected: {clustering}")
-                    
-
-                if clustering < 2 and clustering != -1:
-                    print("\n go go go \n")
-                    needle_pos = run_center(image)
-                    print(f"Needle position: {needle_pos}")
-
-                    if needle_pos == -1:
-                        print("No valid center detected")
-                        target_y += 0.005
-
-                        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-                        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                        stop_move(rtde_c)
-                        
-                        image = take_picture()
-                        clustering =  run(image)
-
-                        if clustering == -1 or clustering > 1:
-                            break
-                        else:
-                            continue
-
-                    if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
-                        target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                            
-                    else:
-                        print(f"Needle is centered at: {needle_pos}")
-                        correct_pos.append(needle_pos)
-                        center = True
-                        found = True
-                    
-
-
+    if bool:
+        correct_pos_x = search(rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        print(f"Correct positions found: {correct_pos_x}") 
 
 
 
@@ -209,7 +110,7 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
-    correct_pos
+    print(f"correct_pos_x: {correct_pos_x}")
     # --- Cleanup ---
     # open(servol) 
     time.sleep(1)
