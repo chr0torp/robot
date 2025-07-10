@@ -101,6 +101,16 @@ try:
         print(f"Formatted positions: {my_formatted_list}")
         print(f"Formatted positions without duplicates: {no_duplicates}") 
 
+    
+    for i in no_duplicates:
+        target_x1 = float(i)
+        target_y1 = target_y
+
+        target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
+        print(f"Moving to corrected position: {target_pose1}")
+    
+        rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
+
 
 
 

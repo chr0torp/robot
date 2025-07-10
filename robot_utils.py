@@ -177,4 +177,8 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         print(f"clustering: {clustering}")
 
     
+
+    move = [start_x, max_y, Z_HEIGHT] + FIXED_ORIENTATION
+    safe = safe_pos(move)
+    rtde_c.moveL(safe, SPEED, ACCELERATION)
     return list_of_positions
