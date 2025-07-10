@@ -49,9 +49,6 @@ def find_height(mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, 
 
     while not center_height:
         image = take_picture()
-        print("Image captured from camera at Pose 1.")
-        show_image(image)
-        save_image(image, 'captured_image1.jpg')
 
         height = run_height(image)
         if height == -1:
