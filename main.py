@@ -86,11 +86,36 @@ try:
         exit(1)
 
     if bo:
-        image = take_picture()
-        clustering =  run(image)
 
-        if clustering < 2 and clustering != -1:
-            print("\n go go go \n")
+        center = False
+        while not center:
+            image = take_picture()
+            clustering =  run(image)
+
+            if clustering < 2 and clustering != -1:
+                print("\n go go go \n")
+                needle_pos = run_center(image)
+
+                if needle_pos == -1:
+                    print("No valid center detected, exiting.")
+                    continue
+
+                elif needle_pos > (mid+25):
+                    if needle_pos < (mid+100):
+                        target_x1 += 0.005
+                    else:
+                        target_x1 += 0.01
+
+                elif needle_pos < (mid-25):
+                    if needle_pos > (mid-100):
+                        target_x1 -= 0.005
+                    else:
+                        target_x1 -= 0.01
+                
+                else:
+                    print(f"Needle is centered at: {needle_pos}")
+                    center = True
+                    
 
 
 

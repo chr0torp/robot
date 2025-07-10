@@ -199,6 +199,42 @@ def run_height(img):
     
     return avg
 
+def avg_center(arr: np.ndarray):
+    """
+    Calculate the average center (x-coordinates) for each line in the array.
+    Returns a list of tuples (x1, x2) for each line.
+    """
+    centers = []
+    for line in arr:
+        x = line[0][0]
+        centers.append(x)
+
+    if sum(centers) == 0 or len(centers) == 0:
+        print("No centers detected, returning -1.")
+        return -1
+    
+    avg = sum(centers) / len(centers)
+    return avg
+
+def run_center(img):
+
+    lower = 50
+    upper = lower * 2
+
+    edges = filter_canny_edges(lower, upper, img)
+
+
+    lines = hh_lines(edges)
+    lines = angle_between_lines(lines)
+
+    avg = avg_center(lines)
+
+    if lines is None or len(lines) == 0:
+        print("No lines detected after angle filtering. Skipping clustering.")
+        return -1
+    
+    return avg
+
 
 def run(img):
     """
