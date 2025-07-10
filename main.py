@@ -84,7 +84,6 @@ try:
 
     correct_pos = []
     last_pos = 0
-    processed_needle_x_coords = [] # New list to store x-coordinates of processed needles
 
     while target_y > -0.15:
 
@@ -111,42 +110,42 @@ try:
 
                 if clustering > 1:
                     print(f"\n last_pos: {last_pos} \n")
-                    
+                    n = 0
+
+                    closest = 10000
+                    sec_closest = 10000
+
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
-                    
-                    # --- New Logic for selecting the next needle ---
-                    next_needle_candidate = -1
-                    min_dist_right = float('inf')
-
-                    # Filter out needles already processed and find the closest one to the right of last_pos
                     for i in avg_list:
-                        if i > last_pos and i not in processed_needle_x_coords:
-                            dist = i - last_pos
-                            if dist < min_dist_right:
-                                min_dist_right = dist
-                                next_needle_candidate = i
+                        dist = i - last_pos
+                        if abs(dist) < closest:
+                            closest = abs(last_pos - i)
+                            needle_pos = i
+                        if dist > 0 and not abs(dist) < closest:
+                            n += 1
+                            if abs(dist) < sec_closest:
+                                sec_closest = abs(dist)
+                                sec_needle_pos = i
 
-                    if next_needle_candidate != -1:
-                        needle_pos = next_needle_candidate
-                        print(f"Next needle position (to the right): {needle_pos}")
+                    print(f"Needle position: {needle_pos}")
+                    if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
+                        print(f"Needle is not centered, adjusting position: {needle_pos}")
+                        quit_key()
 
-                        if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
-                            print(f"Needle is not centered, adjusting position: {needle_pos}")
-                            quit_key()
-                            target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                        else:
-                            print(f"Needle is centered at: {needle_pos}")
-                            correct_pos.append(needle_pos)
-                            processed_needle_x_coords.append(needle_pos) # Mark as processed
-                            last_pos = needle_pos # Update last_pos to the newly centered needle
-                            center = True # Move to the next `while target_y` iteration to find new needles by changing y
+                        target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                     else:
-                        # No new needles to the right found in this detection.
-                        # This could mean all needles in this row are processed, or detection failed.
-                        # You might need to adjust target_y or break out of the loop if all done.
-                        print("No new needles found to the right. Moving to next row or finishing.")
-                        center = True # Exit inner loop to allow outer loop to change target_y
-                    # --- End New Logic ---
+                        print(f"Needle is centered at: {needle_pos}")
+                        correct_pos.append(needle_pos)
+                        if n > 0:
+                            closest = sec_closest
+                            needle_pos = sec_needle_pos
+                            n -= 1
+                            print(f"Using second closest needle position: {needle_pos}")
+                            target_y, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                        
+                        else:
+                            center = True
+
 
                     print(f"Average positions: {avg_list}")
                     print(f"last_pos: {last_pos}")
@@ -180,9 +179,8 @@ try:
                     else:
                         print(f"Needle is centered at: {needle_pos}")
                         correct_pos.append(needle_pos)
-                        processed_needle_x_coords.append(needle_pos) # Mark as processed
-                        last_pos = needle_pos # Update last_pos
                         center = True
+                    
 
 
 
