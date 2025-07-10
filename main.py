@@ -127,27 +127,8 @@ try:
                     else:
                         continue
 
-                elif needle_pos > (mid_n+25):
-                    last_pos = needle_pos
-                    if needle_pos < (mid_n+150):
-                        target_y1 -= 0.0025
-                    else:
-                        target_y1 -= 0.01
-
-                    target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
-                    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                    stop_move(rtde_c)
-
-                elif needle_pos < (mid_n-25):
-                    last_pos = needle_pos
-                    if needle_pos > (mid_n-150):
-                        target_y1 += 0.0025
-                    else:
-                        target_y1 += 0.01
-                    
-                    target_pose1 = [target_x1, target_y1, Z_HEIGHT] + FIXED_ORIENTATION
-                    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-                    stop_move(rtde_c)
+                if needle_pos != -1:
+                    adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
                 else:
                     print(f"Needle is centered at: {needle_pos}")

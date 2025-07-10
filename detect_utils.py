@@ -299,6 +299,11 @@ def run(img):
     return clustering, sorted_index, lines
 
 
+
+
+
+
+
 if __name__ == "__main__":
     # arr = np.array([[[2, 2, 2, 3]], [[2, 2, 3, 20]], [[2, 2, 3, 2]]])
     lst = [[0, 3, 4, 10], [1, 2, 6, 8, 9, 12, 13, 17], [7, 16], [5, 11, 14, 15]]
