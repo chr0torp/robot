@@ -110,7 +110,7 @@ except Exception as e:
     print(f"An error occurred: {e}")
 
 finally:
-    print(f"correct_pos_x: {correct_pos_x}")
+    print(f"\n correct_pos_x: {correct_pos_x} \n")
     # --- Cleanup ---
     # open(servol) 
     time.sleep(1)
