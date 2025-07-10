@@ -123,9 +123,14 @@ def search(rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELER
         clustering, sorted_index, lines = run(image)
         point = points(lines)
 
+        avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+        print(f"\n Average positions: {avg_list} \n")
+
+
         print(f"points image: {point}")
         print(f"sorted_index: {sorted_index}")
         print(f"clustering: {clustering}")
+        
         break 
 
 
