@@ -137,8 +137,6 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
 
         if lines == -1:
             max_y -= 0.02
-            tracked_needle_id = None 
-            last_known_needle_pos = None
             continue
         
         print("2")
