@@ -46,11 +46,14 @@ try:
     target_y0 = 0.0
     target_z0 = 0.60
 
+    # target_x1 = -0.5
+    # target_y1 = -0.15
+
     target_x1 = -0.5
-    target_y1 = -0.15
+    target_y1 = 0.05
 
     target_x2 = -0.5
-    target_y2 = 0.15
+    target_y2 = -0.15
 
     target_pose0 = [target_x0, target_y0, target_z0] + FIXED_ORIENTATION
 
