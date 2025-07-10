@@ -117,7 +117,7 @@ try:
 
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
                     for i in avg_list:
-                        dist = i - last_pos
+                        dist = last_pos - i
                         if abs(dist) < closest:
                             closest = abs(last_pos - i)
                             needle_pos = i
