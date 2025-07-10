@@ -8,6 +8,8 @@ from servo_utils import *
 from camara_utils import *
 from detect_utils import *
 
+mid = 540
+safe_mid = 800
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
@@ -75,7 +77,7 @@ try:
 
 
 
-    Z_HEIGHT = find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    Z_HEIGHT = find_height(safe_mid, rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
     print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
 
