@@ -143,8 +143,8 @@ def points(arr: np.ndarray):
         list: A list of points extracted from the array.
     """
     arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
-    points = arr.tolist()
-    return points
+    point = arr.tolist()
+    return point
 
 # def sort_index(lst: list, points: list):
 def sort_index(lst: list, arr: np.ndarray):
@@ -152,17 +152,17 @@ def sort_index(lst: list, arr: np.ndarray):
     """
     """
 
-    points = points(arr)
-    print(f"points: {points}")
+    point = points(arr)
+    print(f"points: {point}")
 
     n = len(lst)
 
     for i in range(n-1):
 
         for j in range(i, n):
-            val1 = points[lst[i][0]][0]
+            val1 = point[lst[i][0]][0]
 
-            val2 = points[lst[j][0]][0]
+            val2 = point[lst[j][0]][0]
 
             if val1 > val2:
                 wait = lst[i]
