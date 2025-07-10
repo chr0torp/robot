@@ -128,8 +128,10 @@ try:
                                 sec_needle_pos = i
 
                     print(f"Needle position: {needle_pos}")
-                    if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
+                    if needle_pos > (mid_n + 50) or needle_pos < (mid_n - 50):
                         print(f"Needle is not centered, adjusting position: {needle_pos}")
+                        quit_key()
+
                         target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                     else:
                         print(f"Needle is centered at: {needle_pos}")
@@ -137,6 +139,7 @@ try:
                         if n > 0:
                             needle_pos = sec_needle_pos
                             print(f"Using second closest needle position: {needle_pos}")
+                            target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
                         else:
                             center = True
