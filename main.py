@@ -94,10 +94,11 @@ try:
         while not center:
             
             image = take_picture()
-            clustering, sorted_index, lines =  run(image)
-            x_lines = [line[0][0] for line in lines] if lines is not None else []
+            clustering, sorted_index, lines = run(image)
+            lines = lines.tolist() if lines is not None else []
+            x_lines = [line[0][0] for line in lines] if lines else []
 
-            
+
 
             if clustering > 1:
                 avg_list = [sum(lines[idx] for idx in group) / len(group) for group in sorted_index]
