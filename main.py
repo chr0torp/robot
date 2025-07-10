@@ -117,7 +117,7 @@ try:
 
                     avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
                     for i in avg_list:
-                        dist = last_pos - i
+                        dist = i - last_pos
                         print(f"Distance from last position: {dist}")
                         if abs(dist) < closest:
                             closest = abs(last_pos - i)
