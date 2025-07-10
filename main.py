@@ -34,7 +34,7 @@ try:
 
     initial_pose = rtde_r.getActualTCPPose()
     print(f"Initial TCP Pose: {initial_pose}")
-    wait_for_key()
+    # wait_for_key()
 
     # image = take_picture()
     # print("Image captured from camera.")

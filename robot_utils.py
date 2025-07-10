@@ -62,7 +62,7 @@ def find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED
 
         print(f"Detected height: {height}")
 
-        if height > (mid+50):
+        if height > (mid+25):
             if height < (mid+100):
                 Z_HEIGHT -= 0.005
             else:
@@ -72,7 +72,7 @@ def find_height(rtde_c, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, SPEED
             rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
             stop_move(rtde_c)
 
-        elif height < (mid-50):
+        elif height < (mid-25):
             if height > (mid-100):
                 Z_HEIGHT += 0.005
             else:

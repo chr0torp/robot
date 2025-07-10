@@ -212,7 +212,7 @@ def run(img):
     print(f"lines: {lines}")
 
     i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
-    i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
+    # i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
 
     draw_lines(img, lines)
 
