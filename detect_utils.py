@@ -256,17 +256,17 @@ def run(img):
         return -1, -1, lines
 
     db, clustering, minus = dbscan(lines)
-    print(f"db object: {db}")
-    print(f"clustering: {clustering}")
-    print(f"minus: {minus}")
+    # print(f"db object: {db}")
+    # print(f"clustering: {clustering}")
+    # print(f"minus: {minus}")
 
     index_list = index(db, clustering)
 
     sorted_index = sort_index(index_list, lines)
 
-    print(f"index_list: {index_list}")
-    print(f"sorted_index: {sorted_index}")
-    print(f"lines: {lines}")
+    # print(f"index_list: {index_list}")
+    # print(f"sorted_index: {sorted_index}")
+    # print(f"lines: {lines}")
 
     i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
     # i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
