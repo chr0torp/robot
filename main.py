@@ -95,13 +95,13 @@ try:
             
             image = take_picture()
             clustering, sorted_index, lines = run(image)
-            points = points(lines)
-            print(f"points image: {points}")
+            point = points(lines)
+            print(f"points image: {point}")
 
 
 
             if clustering > 1:
-                avg_list = [sum(points[idx] for idx in group) / len(group) for group in sorted_index]
+                avg_list = [sum(point[idx] for idx in group) / len(group) for group in sorted_index]
                 print(f"Average positions: {avg_list}")
                 print(f"last_pos: {last_pos}")
                 print(f"Clustering detected: {clustering}")
