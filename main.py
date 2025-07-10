@@ -118,8 +118,8 @@ try:
                         continue
 
                 elif needle_pos > (mid+25):
-                    if needle_pos < (mid+100):
-                        target_y1 -= 0.005
+                    if needle_pos < (mid+150):
+                        target_y1 -= 0.0025
                     else:
                         target_y1 -= 0.01
 
@@ -128,8 +128,8 @@ try:
                     stop_move(rtde_c)
 
                 elif needle_pos < (mid-25):
-                    if needle_pos > (mid-100):
-                        target_y1 += 0.005
+                    if needle_pos > (mid-150):
+                        target_y1 += 0.0025
                     else:
                         target_y1 += 0.01
                     
