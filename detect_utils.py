@@ -207,6 +207,21 @@ def run_height(img):
         print("No lines detected after angle filtering. Skipping clustering.")
         return -1
     
+    draw_lines(img, lines)
+
+    new_width = 400  # Desired width
+    new_height = 300  # Desired height
+
+    resized_img_lines = cv2.resize(img, (new_width, new_height))
+    cv2.imshow('lines', resized_img_lines)
+
+    resized_img_canny = cv2.resize(edges, (new_width, new_height))
+    cv2.imshow('Canny Image filter', resized_img_canny)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print("Line Detection using Hough Transform completed.")
+    
     return avg
 
 def avg_center(arr: np.ndarray):
