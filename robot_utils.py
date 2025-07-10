@@ -133,13 +133,15 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         image = take_picture()
         clustering, sorted_index, lines = run(image)
         point = points(lines)
+        print("1")
 
         if lines == -1:
             max_y -= 0.02
             tracked_needle_id = None 
             last_known_needle_pos = None
             continue
-
+        
+        print("2")
         avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
         print(f"\n Average positions: {avg_list} \n")
 
