@@ -140,9 +140,9 @@ try:
                     else:
                         print(f"Needle is centered at: {needle_pos}")
                         correct_pos.append(needle_pos)
-                        if needle_pos == avg_list[-1]:
+                        if needle_pos > (avg_list[-1] - 50) and needle_pos < (avg_list[-1] + 50):
                             break
-                        
+
                         if n > 0:
                             closest = sec_closest
                             needle_pos = sec_needle_pos
