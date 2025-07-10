@@ -134,6 +134,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         clustering, sorted_index, lines = run(image)
         point = points(lines)
         print("1")
+        print(f"lines: {lines}")
 
         if lines == -1:
             print("No lines detected after angle filtering. Skipping clustering.")
