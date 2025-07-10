@@ -100,7 +100,21 @@ try:
 
 
             if clustering > 1:
+                closest = 10000
                 avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+                for i in avg_list:
+                    if abs(last_pos - i) < closest:
+                        closest = abs(last_pos - i)
+                        needle_pos = i
+
+                print(f"Needle position: {needle_pos}")
+                if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
+                    target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                else:
+                    print(f"Needle is centered at: {needle_pos}")
+                    center = True
+
+
                 print(f"Average positions: {avg_list}")
                 print(f"last_pos: {last_pos}")
                 print(f"Clustering detected: {clustering}")
@@ -127,7 +141,7 @@ try:
                     else:
                         continue
 
-                if needle_pos != -1:
+                if needle_pos > (mid_n + 25) or needle_pos < (mid_n - 25):
                     target_y1, last_pos = adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
                         
                 else:
