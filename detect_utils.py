@@ -173,8 +173,11 @@ def avg_hight(arr: np.ndarray):
         y2 = line[0][3]
         heights.append(max(y1, y2))
 
+    if sum(heights) == 0 or len(heights) == 0:
+        print("No heights detected, returning 0.")
+        return -1
+    
     avg = sum(heights) / len(heights)
-
     return avg
 
 
