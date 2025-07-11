@@ -16,7 +16,7 @@ mid_n = 1040
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
 Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
-Z_HEIGHT = 0.36
+SAFE_Z_HEIGHT = 0.36
 
 SPEED = 0.3  
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
@@ -65,17 +65,17 @@ try:
     safe_pose1 = safe_pos(target_pose1)
 
 
-    print(f"Moving to initial position: {target_pose0}")
-    rtde_c.moveL(target_pose0, SPEED, ACCELERATION)
-    stop_move(rtde_c)
-    print("Reached initial position.")
+    # print(f"Moving to initial position: {target_pose0}")
+    # rtde_c.moveL(target_pose0, SPEED, ACCELERATION)
+    # stop_move(rtde_c)
+    # print("Reached initial position.")
 
 
-    print(f"Moving to Pose 1: {target_pose1}")
-    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
-    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-    stop_move(rtde_c)
-    print("Reached Pose 1.")
+    # print(f"Moving to Pose 1: {target_pose1}")
+    # rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+    # rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+    # stop_move(rtde_c)
+    # print("Reached Pose 1.")
 
 
 
@@ -96,19 +96,77 @@ try:
     # if bool:
     #     correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
-    correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
-
+    # correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
+    correct_pos_x = [0.06]
     
     for i in correct_pos_x:
         print(f"Processing position: {i}")
 
 
-        target_pose1 = [target_x, i, Z_HEIGHT] + FIXED_ORIENTATION
+        target_pose1 = [target_x, i, SAFE_Z_HEIGHT] + FIXED_ORIENTATION
         safe_pose1 = safe_pos(target_pose1)
-
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
         stop_move(rtde_c)
+
+        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        target_pose2 = [target_x2, i, Z_HEIGHT] + FIXED_ORIENTATION
+        rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
+        stop_move(rtde_c)
+
+        center = False
+        center_point = mid_n
+        min_distance = 10000
+        best_candidate_x = 0.0
+        y = i
+
+        while not center:
+            
+            image = take_picture()
+            clustering, sorted_index, lines = run(image)
+            point = points(lines)
+            print(f"points image: {point}")
+
+
+            if clustering > 1:
+                avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+                print(f"Average positions: {avg_list}")
+
+                for i in avg_list:
+                    if abs(i - center_point) < min_distance:
+                        min_distance = abs(i - center_point)
+                        best_candidate_x = i
+
+                if not (center_point - 25 < best_candidate_x < center_point + 25):
+                    y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                    min_distance = 10000
+
+                elif center_point - 25 < best_candidate_x < center_point + 25:
+                    print("Best candidate within range, stopping search.")
+                    center = True
+                    continue
+
+            if clustering == 1:
+                print("Only one cluster detected, using its position.")
+                best_candidate_x = point[0][0]
+
+                if not (center_point - 25 < best_candidate_x < center_point + 25):
+                    y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+                    min_distance = 10000
+
+                elif center_point - 25 < best_candidate_x < center_point + 25:
+                    print("Best candidate within range, stopping search.")
+                    center = True
+                    continue            
+
+            if clustering == 0:
+                print("No clusters detected, stopping search.")
+                center = True
+                continue
+
+            quit_key()
+
+
 
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
 
