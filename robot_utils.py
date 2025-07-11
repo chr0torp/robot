@@ -110,16 +110,32 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
     
     return target_y1
 
+def merge_positions(positions):
+
+    treshold = 0.01  
+    if not positions:
+        return []
+    
+    merged_positions = []
+    sorted_list = sorted(positions)
+    current_group = [sorted_list[0]]
+
+    for pos in sorted_list[1:]:
+        if abs(pos - current_group[-1]) <= treshold:
+            current_group.append(pos)
+        else:
+            merged_positions.append(sum(current_group) / len(current_group))
+            current_group = [pos]
+    
+    return merged_positions
+
+
 
 def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION):
     """
     
     """
     last_pos = 0
-    min_dist = 10000
-    current_frame_needle = False
-    current_frame_pos = 0
-
 
     list_of_positions = []
     max_y = start_y
@@ -139,7 +155,6 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         if len(point) == 0:
             print("No lines detected after angle filtering. Skipping clustering.")
             max_y -= 0.005
-            min_dist = 10000
             last_pos = 0
             continue
         
@@ -164,21 +179,31 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
         if best_candidate_x != -1: 
             list_of_positions.append(max_y) 
             last_pos = best_candidate_x 
-            needle_found_in_sweep = True 
         else:
-            min_dist = 10000
             last_pos = 0
 
                 
         max_y -= 0.005
 
-        print(f"points image: {point}")
-        print(f"sorted_index: {sorted_index}")
-        print(f"clustering: {clustering}")
-
-    
 
     move = [start_x, max_y, Z_HEIGHT] + FIXED_ORIENTATION
     safe = safe_pos(move)
     rtde_c.moveL(safe, SPEED, ACCELERATION)
-    return list_of_positions
+
+    my_formatted_list = ['%.2f' % elem for elem in list_of_positions]
+    no_duplicates = list(set(my_formatted_list))
+    no_duplicates_float = [float(s) for s in no_duplicates]
+    merge = merge_positions(no_duplicates_float)
+
+    return merge
+
+
+if __name__ == "__main__":
+    lst = [0.07, 0.05, 0.04, 0.01, 0.02]
+    lst2 = [0.07, 0.05, 0.02, 0.01, 0.04]
+
+    merged = merge_positions(lst)
+    merged2 = merge_positions(lst2)
+
+    print(f"merged {merged}")
+    print(f"merged2 {merged2}")
