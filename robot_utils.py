@@ -205,6 +205,27 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
     return merge
 
 
+
+def move_Wrist_3(degrees, rtde_c, rtde_r, SPEED, ACCELERATION):
+    """
+    """
+    try:
+        angle_to_move_rad = math.radians(degrees)
+        current_positions = rtde_r.getActualTCPPose()
+        target_joint_positions = list(current_positions)
+        target_joint_positions[5] += angle_to_move_rad
+
+        rtde_c.moveJ(target_joint_positions, SPEED, ACCELERATION)
+        stop_move(rtde_c)
+        print(f"Moved wrist to position: {target_joint_positions[5]} radians")
+    
+    except Exception as e:
+        print(f"Error moving wrist: {e}")
+        
+
+
+
+
 if __name__ == "__main__":
     lst = [0.07, 0.05, 0.04, 0.01, 0.02]
     lst2 = [0.07, 0.05, 0.02, 0.01, 0.04]

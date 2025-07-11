@@ -61,6 +61,10 @@ try:
     target_pose0 = [target_x0, target_y0, target_z0] + FIXED_ORIENTATION
     safe_pose0 = safe_pos(target_pose0)
 
+    quit_key()
+    move_Wrist_3(15, rtde_c, rtde_r, SPEED, ACCELERATION)
+    quit_key()
+
     target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
     safe_pose1 = safe_pos(target_pose1)
 
@@ -100,75 +104,78 @@ try:
     # correct_pos_x = [0.06]
     correct_pos_x = [0.02, 0.06]
 
-    for i in correct_pos_x:
-        print(f"Processing position: {i}")
+    # for i in correct_pos_x:
+    #     print(f"Processing position: {i}")
 
 
-        target_pose1 = [target_x, i, SAFE_Z_HEIGHT] + FIXED_ORIENTATION
-        safe_pose1 = safe_pos(target_pose1)
-        rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
-        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-        stop_move(rtde_c)
+    #     target_pose1 = [target_x, i, SAFE_Z_HEIGHT] + FIXED_ORIENTATION
+    #     safe_pose1 = safe_pos(target_pose1)
+    #     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
+    #     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+    #     stop_move(rtde_c)
 
-        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
-        target_pose2 = [target_x2, i, Z_HEIGHT] + FIXED_ORIENTATION
-        rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
-        stop_move(rtde_c)
+    #     Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    #     target_pose2 = [target_x2, i, Z_HEIGHT] + FIXED_ORIENTATION
+    #     rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
+    #     stop_move(rtde_c)
 
-        center = False
-        center_point = mid_n
-        min_distance = 10000
-        best_candidate_x = 0.0
-        y = i
+    #     center = False
+    #     center_point = mid_n
+    #     min_distance = 10000
+    #     best_candidate_x = 0.0
+    #     y = i
 
-        while not center:
+    #     while not center:
             
-            image = take_picture()
-            clustering, sorted_index, lines = run(image)
-            point = points(lines)
-            print(f"points image: {point}")
+    #         image = take_picture()
+    #         clustering, sorted_index, lines = run(image)
+    #         point = points(lines)
+    #         print(f"points image: {point}")
 
 
-            if clustering > 1:
-                avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
-                print(f"Average positions: {avg_list}")
+    #         if clustering > 1:
+    #             avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+    #             print(f"Average positions: {avg_list}")
 
-                for i in avg_list:
-                    if abs(i - center_point) < min_distance:
-                        min_distance = abs(i - center_point)
-                        best_candidate_x = i
+    #             for i in avg_list:
+    #                 if abs(i - center_point) < min_distance:
+    #                     min_distance = abs(i - center_point)
+    #                     best_candidate_x = i
 
-                if not (center_point - 25 < best_candidate_x < center_point + 25):
-                    y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                    min_distance = 10000
+    #             if not (center_point - 25 < best_candidate_x < center_point + 25):
+    #                 y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+    #                 min_distance = 10000
 
-                elif center_point - 25 < best_candidate_x < center_point + 25:
-                    print("Best candidate within range, stopping search.")
-                    center = True
-                    continue
+    #             elif center_point - 25 < best_candidate_x < center_point + 25:
+    #                 print("Best candidate within range, stopping search.")
+    #                 center = True
+    #                 continue
 
-            if clustering == 1:
-                print("Only one cluster detected, using its position.")
-                best_candidate_x = point[0][0]
+    #         if clustering == 1:
+    #             print("Only one cluster detected, using its position.")
+    #             best_candidate_x = point[0][0]
 
-                if not (center_point - 25 < best_candidate_x < center_point + 25):
-                    y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
-                    min_distance = 10000
+    #             if not (center_point - 25 < best_candidate_x < center_point + 25):
+    #                 y = adjust_pos(best_candidate_x, center_point, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, rtde_c, SPEED, ACCELERATION)
+    #                 min_distance = 10000
 
-                elif center_point - 25 < best_candidate_x < center_point + 25:
-                    print("Best candidate within range, stopping search.")
-                    center = True
-                    continue            
+    #             elif center_point - 25 < best_candidate_x < center_point + 25:
+    #                 print("Best candidate within range, stopping search.")
+    #                 center = True
+    #                 continue            
 
-            if clustering == 0:
-                print("No clusters detected, stopping search.")
-                center = True
-                continue
+    #         if clustering == 0:
+    #             print("No clusters detected, stopping search.")
+    #             center = True
+    #             continue
 
 
-        quit_key()
+    #     quit_key()
+    #     Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        
+    #     quit_key()
 
-        rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
+    #     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
 
 
 
