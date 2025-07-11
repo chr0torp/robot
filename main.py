@@ -196,14 +196,14 @@ try:
                 center_point = best_candidate_x
 
             if center_point < mid_n - 25:
-                if center_point < mid_n - 50:
-                    target_x += 0.005
+                if center_point < mid_n - 100:
+                    target_x += 0.01
                 else:
                     target_x += 0.0025
 
             elif center_point > mid_n + 25:
-                if center_point > mid_n + 50:
-                    target_x -= 0.005
+                if center_point > mid_n + 100:
+                    target_x -= 0.01
                 else:
                     target_x -= 0.0025
 
@@ -214,8 +214,8 @@ try:
             
             print(f"Time to move ----------")
             quit_key()
-            sum_of_degrees = sum(degree_list)
-            move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
+            # sum_of_degrees = sum(degree_list)
+            # move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
 
             target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose, SPEED, ACCELERATION)
