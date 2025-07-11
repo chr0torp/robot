@@ -165,14 +165,65 @@ try:
         Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         
         quit_key()
-        move_Wrist_3(45, rtde_c, rtde_r, SPEED, ACCELERATION)
-        image = take_picture()
-        clustering, sorted_index, lines = run(image)
-        point = points(lines)
+
+        true_depth = False
+        while not true_depth:
+            
+            degree_list = [10, 10, 10]
+
+            center_point = mid_n
+            min_distance = 10000
+            best_candidate_x = 0.0
+
+            for degree in degree_list:
+                print(f"Time to move ---------- {degree} degrees")
+                quit_key()
+                
+                move_Wrist_3(degree, rtde_c, rtde_r, SPEED, ACCELERATION)
+                image = take_picture()
+                clustering, sorted_index, lines = run(image)
+                point = points(lines)
+
+                avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
+                print(f"Average positions: {avg_list}")
+
+                for i in avg_list:
+                    if abs(i - center_point) < min_distance:
+                        min_distance = abs(i - center_point)
+                        best_candidate_x = i
+
+                min_distance = 10000
+                center_point = best_candidate_x
+
+            if center_point < mid_n - 25:
+                if center_point < mid_n - 50:
+                    target_x += 0.005
+                else:
+                    target_x += 0.0025
+
+            elif center_point > mid_n + 25:
+                if center_point > mid_n + 50:
+                    target_x -= 0.005
+                else:
+                    target_x -= 0.0025
+
+            else:
+                print("Best candidate within range, stopping search.")
+                true_depth = True
+                continue
+            
+            print(f"Time to move ----------")
+            quit_key()
+            target_pose = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+
+
+
+
         print(f"points image: {point}")
         show_image(image)
         quit_key()
-        move_Wrist_3(-45, rtde_c, rtde_r, SPEED, ACCELERATION)
+
+        move_Wrist_3(-10, rtde_c, rtde_r, SPEED, ACCELERATION)
 
 
     rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
