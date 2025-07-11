@@ -15,7 +15,7 @@ mid_n = 1040
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
-Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
+Z_HEIGHT = 0.36             # Desired constant Z height (in meters)
 SAFE_Z_HEIGHT = 0.36
 
 SPEED = 0.3  
@@ -97,8 +97,9 @@ try:
     #     correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
     # correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
-    correct_pos_x = [0.06]
-    
+    # correct_pos_x = [0.06]
+    correct_pos_x = [0.02, 0.06]
+
     for i in correct_pos_x:
         print(f"Processing position: {i}")
 
@@ -164,9 +165,8 @@ try:
                 center = True
                 continue
 
-            quit_key()
 
-
+        quit_key()
 
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
 
