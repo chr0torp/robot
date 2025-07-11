@@ -60,39 +60,39 @@ try:
     safe_pose1 = safe_pos(target_pose1)
 
 
-    # print(f"Moving to initial position: {target_pose0}")
-    # rtde_c.moveL(target_pose0, SPEED, ACCELERATION)
-    # stop_move(rtde_c)
-    # print("Reached initial position.")
+    print(f"Moving to initial position: {target_pose0}")
+    rtde_c.moveL(target_pose0, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached initial position.")
 
 
-    # print(f"Moving to Pose 1: {target_pose1}")
-    # rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
-    # rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-    # stop_move(rtde_c)
-    # print("Reached Pose 1.")
+    print(f"Moving to Pose 1: {target_pose1}")
+    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+    rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+    stop_move(rtde_c)
+    print("Reached Pose 1.")
 
 
 
-    # Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
-    # print(f"Final Z Height after adjustment: {Z_HEIGHT}")
+    Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
 
-    # while not bool:
-    #     target_y -= 0.02
+    while not bool:
+        target_y -= 0.02
 
-    #     target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-    #     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-    #     stop_move(rtde_c)
+        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+        stop_move(rtde_c)
 
-    #     Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
 
-    # if bool:
-    #     correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    if bool:
+        correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
     # correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
-    correct_pos_x = [0.06]
+    # correct_pos_x = [0.06]
     # correct_pos_x = [0.02, 0.06]
 
     for i in correct_pos_x:
@@ -206,14 +206,13 @@ try:
             else:
                 print("Best candidate within range, stopping search.")
                 true_depth = True
+                target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
+                safe_pose = safe_pos(target_pose)
+                rtde_c.moveL(safe_pose, SPEED, ACCELERATION)
                 quit_key()
                 continue
             
             print(f"Time to move ----------")
-            # quit_key()
-            # sum_of_degrees = sum(degree_list)
-            # move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
-
             target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose, SPEED, ACCELERATION)
             stop_move(rtde_c)
@@ -225,12 +224,9 @@ try:
         show_image(image)
         quit_key()
 
-        move_Wrist_3(-10, rtde_c, rtde_r, SPEED, ACCELERATION)
 
 
     rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
-
-
     time.sleep(1)
 
 
