@@ -237,6 +237,8 @@ try:
 
 except Exception as e:
     print(f"An error occurred: {e}")
+    image = take_picture()
+    show_image(image)
 
 finally:
     print(f"\n correct_pos_x: {correct_pos_x} \n")
