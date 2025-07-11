@@ -107,7 +107,6 @@ def dbscan(arr: np.ndarray):
     """
     
     arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
-    # print(arr)
 
     db = DBSCAN(eps=80 , min_samples=3).fit(arr)
     db.fit(arr)
@@ -117,7 +116,7 @@ def dbscan(arr: np.ndarray):
     uniq = set(original_labels)
     lowest = min(uniq)
     
-    return list(original_labels), len(uniq), lowest
+    return list(original_labels), len(uniq)
     
     
 
@@ -265,37 +264,12 @@ def run(img):
         print("No lines detected after angle filtering. Skipping clustering.")
         return -1, -1, lines
 
-    db, clustering, minus = dbscan(lines)
-    # print(f"db object: {db}")
-    # print(f"clustering: {clustering}")
-    # print(f"minus: {minus}")
+    db, clustering = dbscan(lines)
 
     index_list = index(db, clustering)
 
     sorted_index = sort_index(index_list, lines)
 
-    # print(f"index_list: {index_list}")
-    # print(f"sorted_index: {sorted_index}")
-    # print(f"lines: {lines}")
-
-    # i0 = np.array([[lines[i][0]] for i in sorted_index[0]])
-    # # i1 = np.array([[lines[i][0]] for i in sorted_index[1]])
-
-    # draw_lines(img, lines)
-
-    # new_width = 400  # Desired width
-    # new_height = 300  # Desired height
-
-    # resized_img_lines = cv2.resize(img, (new_width, new_height))
-    # cv2.imshow('lines', resized_img_lines)
-
-    # resized_img_canny = cv2.resize(edges, (new_width, new_height))
-    # cv2.imshow('Canny Image filter', resized_img_canny)
-
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    # print("Line Detection using Hough Transform completed.")
-    
     return clustering, sorted_index, lines
 
 

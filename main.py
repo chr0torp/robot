@@ -27,8 +27,11 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 # --- End Configuration ---
 
 try:
-    # servol = start_servo()
-    # open(servol)
+    servol = start_servo()
+    close(servol)
+    wait_for_key()
+    open(servol)
+    time.sleep(2)
 
     # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
@@ -118,6 +121,8 @@ try:
 
         while not center:
             
+            print("finding center ------------------------||||")
+
             image = take_picture()
             clustering, sorted_index, lines = run(image)
             point = points(lines)
@@ -155,7 +160,7 @@ try:
                     center = True
                     continue            
 
-            if clustering == 0:
+            if clustering == -1:
                 print("No clusters detected, stopping search.")
                 center = True
                 continue
@@ -165,6 +170,8 @@ try:
         
         true_depth = False
         while not true_depth:
+
+            print("Finding true depth ------------------------_____")
             
             degree_list = [10, 15, 10]
 
@@ -210,17 +217,23 @@ try:
 
             else:
                 print("Best candidate within range, stopping search.")
+
+                close(servol)
+                time.sleep(2)  
                 true_depth = True
                 target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
                 safe_pose = safe_pos(target_pose)
                 rtde_c.moveL(safe_pose, SPEED, ACCELERATION)
-                quit_key()
+
+                open(servol)
+                time.sleep(2)
                 continue
             
             print(f"Time to move ----------")
             target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose, SPEED, ACCELERATION)
             stop_move(rtde_c)
+
 
 
 
