@@ -141,7 +141,7 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
     max_y = start_y
 
 
-    while max_y > 0.0:
+    while max_y > -0.15:
         move = [start_x, max_y, Z_HEIGHT] + FIXED_ORIENTATION
         rtde_c.moveL(move, SPEED, ACCELERATION)
         stop_move(rtde_c)
@@ -191,9 +191,13 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
     rtde_c.moveL(safe, SPEED, ACCELERATION)
 
     my_formatted_list = ['%.2f' % elem for elem in list_of_positions]
+    print(f"Formatted positions: {my_formatted_list}")
     no_duplicates = list(set(my_formatted_list))
+    print(f"Formatted positions without duplicates: {no_duplicates}")
     no_duplicates_float = [float(s) for s in no_duplicates]
+    print(f"Formatted positions without duplicates as float: {no_duplicates_float}")
     merge = merge_positions(no_duplicates_float)
+    print(f"Merged positions: {merge}")
 
     return merge
 
