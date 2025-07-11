@@ -215,8 +215,9 @@ try:
             print(f"Time to move ----------")
             quit_key()
             sum_of_degrees = sum(degree_list)
-            # move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
-            target_pose = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+            move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
+
+            target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
             rtde_c.moveL(target_pose, SPEED, ACCELERATION)
             stop_move(rtde_c)
 
