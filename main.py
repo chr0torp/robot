@@ -61,9 +61,6 @@ try:
     target_pose0 = [target_x0, target_y0, target_z0] + FIXED_ORIENTATION
     safe_pose0 = safe_pos(target_pose0)
 
-    # quit_key()
-    # move_Wrist_3(15, rtde_c, rtde_r, SPEED, ACCELERATION)
-    # quit_key()
 
     target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
     safe_pose1 = safe_pos(target_pose1)
@@ -178,8 +175,13 @@ try:
     #     rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
 
 
+    rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
 
 
+    quit_key()
+    move_Wrist_3(15, rtde_c, rtde_r, SPEED, ACCELERATION)
+    quit_key()
+    move_Wrist_3(-15, rtde_c, rtde_r, SPEED, ACCELERATION)
 
 
     rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 

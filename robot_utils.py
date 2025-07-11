@@ -211,7 +211,7 @@ def move_Wrist_3(degrees, rtde_c, rtde_r, SPEED, ACCELERATION):
     """
     try:
         angle_to_move_rad = math.radians(degrees)
-        current_positions = rtde_r.getActualTCPPose()
+        current_positions = rtde_r.getActualQ()
         target_joint_positions = list(current_positions)
         target_joint_positions[5] += angle_to_move_rad
 
