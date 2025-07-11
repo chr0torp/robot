@@ -15,8 +15,9 @@ mid_n = 1040
 
 # --- Configuration ---
 ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
-# Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
+Z_HEIGHT = 0.31             # Desired constant Z height (in meters)
 Z_HEIGHT = 0.36
+
 SPEED = 0.3  
 FAST_SPEED = 0.5              # TCP speed (m/s)
 ACCELERATION = 0.01         # TCP acceleration (m/s^2)
@@ -80,36 +81,40 @@ try:
 
 
 
-    Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
-    print(f"Final Z Height after adjustment: {Z_HEIGHT}")
+    # Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    # print(f"Final Z Height after adjustment: {Z_HEIGHT}")
 
 
-    while not bool:
-        target_y -= 0.02
+    # while not bool:
+    #     target_y -= 0.02
 
-        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
-        rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
-        stop_move(rtde_c)
+    #     target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+    #     rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
+    #     stop_move(rtde_c)
 
-        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    #     Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
 
-    if bool:
-        correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+    # if bool:
+    #     correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
+    correct_pos_x = [-0.14, -0.12, -0.9, -0.06, -0.01, 0.02, 0.06]
 
     
     for i in correct_pos_x:
         print(f"Processing position: {i}")
-        print(type(i))
 
-        target_y = float(i)
 
-        target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        target_pose1 = [i, target_y, Z_HEIGHT] + FIXED_ORIENTATION
         safe_pose1 = safe_pos(target_pose1)
+
+        rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
         stop_move(rtde_c)
-        rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
+
+        rtde_c.moveL(safe_pose1, FAST_SPEED, FAST_ACCELERATION)
+
+
 
 
 
