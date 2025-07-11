@@ -105,7 +105,7 @@ try:
         print(f"Processing position: {i}")
 
 
-        target_pose1 = [i, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        target_pose1 = [target_x, i, Z_HEIGHT] + FIXED_ORIENTATION
         safe_pose1 = safe_pos(target_pose1)
 
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
