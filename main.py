@@ -60,6 +60,7 @@ try:
     target_y2 = -0.15
 
     target_pose0 = [target_x0, target_y0, target_z0] + FIXED_ORIENTATION
+    safe_pose0 = safe_pos(target_pose0)
 
     target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
     safe_pose1 = safe_pos(target_pose1)
@@ -105,17 +106,15 @@ try:
         target_y = float(i)
 
         target_pose1 = [target_x, target_y, Z_HEIGHT] + FIXED_ORIENTATION
+        safe_pose1 = safe_pos(target_pose1)
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
         stop_move(rtde_c)
-        quit_key()
-        print(f"Moving to corrected position: {target_pose1}")
-    
         rtde_c.moveL(safe_pose1, SPEED, ACCELERATION)
 
 
 
 
-    rtde_c.moveL(safe_pose1, SPEED, ACCELERATION) 
+    rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
 
 
     time.sleep(1)
