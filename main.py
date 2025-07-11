@@ -180,6 +180,11 @@ try:
                 clustering, sorted_index, lines = run(image)
                 point = points(lines)
 
+                if clustering == -1:
+                    degree_list = [10, 5, 5]
+                    print("No lines detected, adjusting degree list to smaller values.")
+                    continue
+
                 avg_list = [sum(point[idx][0] for idx in group) / len(group) for group in sorted_index]
                 print(f"Average positions: {avg_list}")
 
