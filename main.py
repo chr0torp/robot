@@ -161,15 +161,12 @@ try:
                 continue
 
 
-        quit_key()
         Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         
-        quit_key()
-
         true_depth = False
         while not true_depth:
             
-            degree_list = [10, 10, 10]
+            degree_list = [10, 15, 10]
 
             center_point = mid_n
             min_distance = 10000
@@ -177,7 +174,6 @@ try:
 
             for degree in degree_list:
                 print(f"Time to move ---------- {degree} degrees")
-                quit_key()
 
                 move_Wrist_3(degree, rtde_c, rtde_r, SPEED, ACCELERATION)
                 image = take_picture()
@@ -210,10 +206,11 @@ try:
             else:
                 print("Best candidate within range, stopping search.")
                 true_depth = True
+                quit_key()
                 continue
             
             print(f"Time to move ----------")
-            quit_key()
+            # quit_key()
             # sum_of_degrees = sum(degree_list)
             # move_Wrist_3(-sum_of_degrees, rtde_c, rtde_r, SPEED, ACCELERATION)
 
