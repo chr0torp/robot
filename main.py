@@ -96,7 +96,7 @@ try:
     # if bool:
     #     correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
 
-    correct_pos_x = [-0.14, -0.12, -0.9, -0.06, -0.01, 0.02, 0.06]
+    correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
 
     
     for i in correct_pos_x:
