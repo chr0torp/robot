@@ -105,7 +105,7 @@ try:
         rtde_c.moveL(target_pose1, SPEED, ACCELERATION)
         stop_move(rtde_c)
 
-        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        Z_HEIGHT, bool = find_height(safe_mid, rtde_c, target_x, i, SAFE_Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         target_pose2 = [target_x2, i, Z_HEIGHT] + FIXED_ORIENTATION
         rtde_c.moveL(target_pose2, SPEED, ACCELERATION)
         stop_move(rtde_c)
@@ -162,7 +162,7 @@ try:
 
 
         quit_key()
-        Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, i, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
+        Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         
         quit_key()
         move_Wrist_3(15, rtde_c, rtde_r, SPEED, ACCELERATION)
