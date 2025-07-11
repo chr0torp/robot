@@ -165,9 +165,14 @@ try:
         Z_HEIGHT, bool = find_height(mid, rtde_c, target_x, y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
         
         quit_key()
-        move_Wrist_3(15, rtde_c, rtde_r, SPEED, ACCELERATION)
+        move_Wrist_3(45, rtde_c, rtde_r, SPEED, ACCELERATION)
+        image = take_picture()
+        clustering, sorted_index, lines = run(image)
+        point = points(lines)
+        print(f"points image: {point}")
+        show_image(image)
         quit_key()
-        move_Wrist_3(-15, rtde_c, rtde_r, SPEED, ACCELERATION)
+        move_Wrist_3(-45, rtde_c, rtde_r, SPEED, ACCELERATION)
 
 
     rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
