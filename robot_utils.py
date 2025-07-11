@@ -112,7 +112,7 @@ def adjust_pos(needle_pos, mid_n, target_x1, target_y1, Z_HEIGHT, FIXED_ORIENTAT
 
 def merge_positions(positions):
 
-    treshold = 0.01  
+    treshold = 0.011
     if not positions:
         return []
     
@@ -126,6 +126,9 @@ def merge_positions(positions):
         else:
             merged_positions.append(sum(current_group) / len(current_group))
             current_group = [pos]
+
+    if current_group:
+        merged_positions.append(sum(current_group) / len(current_group))
     
     return merged_positions
 
@@ -205,9 +208,12 @@ def search(mid_n, rtde_c, start_x, start_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, 
 if __name__ == "__main__":
     lst = [0.07, 0.05, 0.04, 0.01, 0.02]
     lst2 = [0.07, 0.05, 0.02, 0.01, 0.04]
+    lst3 = [-0.06, -0.01, -0.12, 0.02]
 
     merged = merge_positions(lst)
     merged2 = merge_positions(lst2)
+    merged3 = merge_positions(lst3)
 
     print(f"merged {merged}")
     print(f"merged2 {merged2}")
+    print(f"merged3 {merged3}")
