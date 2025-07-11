@@ -236,14 +236,6 @@ try:
 
 
 
-
-
-        print(f"points image: {point}")
-        show_image(image)
-        quit_key()
-
-
-
     rtde_c.moveL(safe_pose0, SPEED, ACCELERATION) 
     time.sleep(1)
 
