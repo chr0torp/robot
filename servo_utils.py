@@ -32,7 +32,7 @@ def open(servol):
 
 def close(servol):
     print("Closing servo")
-    servol.ChangeDutyCycle(3.5)  # Set duty cycle to 3.5% (approximately 0 degrees)
+    servol.ChangeDutyCycle(3.0)  # Set duty cycle to 3.5% (approximately 0 degrees)
     time.sleep(2)  # Wait for the servo to move
     servol.ChangeDutyCycle(0)
     print("Servo closed.")
