@@ -8,6 +8,7 @@ from servo_utils import *
 from camara_utils import *
 from detect_utils import *
 
+now = time.strftime("%H%M%S")
 mid = 540
 safe_mid = 800
 
@@ -219,6 +220,10 @@ try:
                 print("Best candidate within range, stopping search.")
 
                 close(servol)
+                image = take_picture()
+                save_image(image, f"{now}_captured_image_{target_x}_{y}.jpg")
+
+
                 time.sleep(2)  
                 true_depth = True
                 target_pose = [target_x, y, Z_HEIGHT] + FIXED_ORIENTATION
