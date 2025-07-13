@@ -221,7 +221,7 @@ try:
 
                 close(servol)
                 image = take_picture()
-                save_image(image, f"{now}_captured_image_{target_x}_{y}.jpg")
+                save_image(image, f"{now}_{y}.jpg")
 
 
                 time.sleep(2)  
