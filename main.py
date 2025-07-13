@@ -29,7 +29,7 @@ FIXED_ORIENTATION = [math.pi, 0, 0]
 try:
     servol = start_servo()
     close(servol)
-    wait_for_key()
+    quit_key()
     open(servol)
     time.sleep(2)
 
