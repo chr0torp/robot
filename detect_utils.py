@@ -7,13 +7,6 @@ from sklearn.cluster import DBSCAN
 
 def angle_between_lines(arr: np.ndarray):
     """
-    Calculate the angle between lines represented by points in a numpy array.
-    Args:
-        arr (np.ndarray): A numpy array of shape (n, 1, 4) where each sub-array
-                          contains four coordinates representing two points of a line.
-    Returns:    
-        np.ndarray: A numpy array containing only the lines that have an angle
-                    less than *** degrees with respect to the horizontal axis.
     """
     final = []
 
@@ -45,12 +38,9 @@ def angle_between_lines(arr: np.ndarray):
 
 
 def filter_canny_edges(lower: int, upper: int, img: np.ndarray):
-    # Apply a filter to the image 
     kernel = np.ones((7,7),np.float32)/20
     dst = cv2.filter2D(img,-1,kernel)
-    # Convert the image to grayscale
     gray = cv2.cvtColor(dst, cv2.COLOR_BGR2GRAY)
-    # Find the edges in the image using canny detector
     edges = cv2.Canny(gray, lower, upper)
     return edges
 
@@ -63,10 +53,6 @@ def hh_lines(edges):
 
 def draw_lines(img, lines):
     """
-    Draw lines on the image.
-    Args:
-        img (np.ndarray): The image on which to draw the lines.
-        lines (np.ndarray): The lines to draw, each represented by a 4-element array.
     """
     for line in lines:
         x1, y1, x2, y2 = line[0]
@@ -135,11 +121,6 @@ def index(lst: list, value: int):
 def points(arr: np.ndarray):
     """
     Extract points from the array.
-    Args:
-        arr (np.ndarray): A numpy array of shape (n, 1, 4) where each sub-array
-                          contains four coordinates representing two points of a line.
-    Returns:
-        list: A list of points extracted from the array.
     """
     arr = arr.reshape(-1, 4)[:, 0].reshape(-1, 1)
     point = arr.tolist()
@@ -152,7 +133,7 @@ def sort_index(lst: list, arr: np.ndarray):
     """
 
     point = points(arr)
-    print(f"points: {point}")
+    # print(f"points: {point}")
 
     n = len(lst)
 
@@ -173,8 +154,6 @@ def sort_index(lst: list, arr: np.ndarray):
 
 def avg_hight(arr: np.ndarray):
     """
-    Calculate the average height (y-coordinates) for each line in the array.
-    Returns a list of tuples (y1, y2) for each line.
     """
     heights = []
     for line in arr:
@@ -210,8 +189,6 @@ def run_height(img):
 
 def avg_center(arr: np.ndarray):
     """
-    Calculate the average center (x-coordinates) for each line in the array.
-    Returns a list of tuples (x1, x2) for each line.
     """
     centers = []
     for line in arr:
@@ -247,9 +224,6 @@ def run_center(img):
 
 def run(img):
     """
-    Main function to run the line detection and clustering.
-    Args:
-        img (np.ndarray): The input image.
     """
     lower = 50
     upper = lower * 2
@@ -271,9 +245,6 @@ def run(img):
     sorted_index = sort_index(index_list, lines)
 
     return clustering, sorted_index, lines
-
-
-
 
 
 

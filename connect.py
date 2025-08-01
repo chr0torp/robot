@@ -6,7 +6,6 @@ from rtde_receive import RTDEReceiveInterface as RTDEReceive
 ROBOT_IP = "192.168.1.102"
 
 try:
-    # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
     rtde_r = RTDEReceive(ROBOT_IP)
     print("Successfully connected to robot.")

@@ -14,18 +14,16 @@ safe_mid = 800
 
 mid_n = 1040
 
-# --- Configuration ---
-ROBOT_IP = "192.168.1.102"  # Replace with your robot's actual IP address
-Z_HEIGHT = 0.36             # Desired constant Z height (in meters)
+
+ROBOT_IP = "192.168.1.102"  
+Z_HEIGHT = 0.36             
 SAFE_Z_HEIGHT = 0.36
 
 SPEED = 0.3  
-ACCELERATION = 0.01         # TCP acceleration (m/s^2)
+ACCELERATION = 0.01         
 
-# Define the fixed orientation (tool's Z-axis points down along base -Z)
-# Rotation of pi radians (180 degrees) around the base X-axis
 FIXED_ORIENTATION = [math.pi, 0, 0]
-# --- End Configuration ---
+
 
 try:
     servol = start_servo()
@@ -34,7 +32,6 @@ try:
     open(servol)
     time.sleep(2)
 
-    # --- Connect to Robot ---
     rtde_c = RTDEControl(ROBOT_IP)
     rtde_r = RTDEReceive(ROBOT_IP)
     print("Successfully connected to robot.")
@@ -42,7 +39,7 @@ try:
     initial_pose = rtde_r.getActualTCPPose()
     print(f"Initial TCP Pose: {initial_pose}")
 
-    # --- Move to Initial Position ---
+
     target_x0 = -0.5
     target_y0 = 0.0
     target_z0 = 0.60
@@ -94,10 +91,6 @@ try:
 
     if bool:
         correct_pos_x = search(mid_n, rtde_c, target_x, target_y, Z_HEIGHT, FIXED_ORIENTATION, SPEED, ACCELERATION)
-
-    # correct_pos_x = [-0.14, -0.12, -0.09, -0.06, -0.01, 0.02, 0.06]
-    # correct_pos_x = [0.06]
-    # correct_pos_x = [0.02, 0.06]
 
     for i in correct_pos_x:
         print(f"Processing position: {i}")
@@ -252,12 +245,10 @@ except Exception as e:
 
 finally:
     print(f"\n correct_pos_x: {correct_pos_x} \n")
-    # --- Cleanup ---
-    # open(servol) 
     time.sleep(1)
     print("Cleaning up resources...")
     stop_image()
-    # stop(servol)
+
 
 
     rtde_c.disconnect()
